@@ -1,1 +1,1 @@
-USB 分析仪抓出来的手柄包
+USB The handle packets captured by the USB analyzer include XBOX and SONY
