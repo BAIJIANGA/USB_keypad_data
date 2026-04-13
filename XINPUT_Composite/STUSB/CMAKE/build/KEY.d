@@ -1,0 +1,2 @@
+build/KEY.o: USER/BSP/KEY.c USER/BSP/KEY.h
+USER/BSP/KEY.h:

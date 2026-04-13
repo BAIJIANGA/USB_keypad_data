@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/BaiJiang/Desktop/CherryUsb_t_2/build/Debug/cmake_install.cmake",
+		"C:/Users/BaiJiang/Desktop/CherryUsb_t_2/build/Debug/cmake/stm32cubemx/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

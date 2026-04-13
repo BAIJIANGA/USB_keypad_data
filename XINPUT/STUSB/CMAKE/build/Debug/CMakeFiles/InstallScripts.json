@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"E:/GitHub_BAIJING_WorkSpace/USB_keypad_data/XINPUT/ST_USB_cmake/build/Debug/cmake_install.cmake",
+		"E:/GitHub_BAIJING_WorkSpace/USB_keypad_data/XINPUT/ST_USB_cmake/build/Debug/cmake/stm32cubemx/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

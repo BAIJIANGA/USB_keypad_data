@@ -1,0 +1,6 @@
+C:/Users/BaiJiang/Desktop/CherryUsb_t/Core/Src/main.c:36:6:ka_h	0	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t/Core/Src/main.c:54:6:ka_l	0	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t/Core/Src/main.c:168:6:SystemClock_Config	96	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t/Core/Src/main.c:117:5:main	8	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t/Core/Src/main.c:222:6:HAL_TIM_PeriodElapsedCallback	0	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t/Core/Src/main.c:240:6:Error_Handler	0	static

@@ -1,0 +1,8 @@
+C:/Users/BaiJiang/Desktop/CherryUsb_t_2/USER/CherryUSB/class/hid/usbd_hid.c:9:12:hid_class_interface_request_handler	48	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t_2/USER/CherryUSB/class/hid/usbd_hid.c:50:24:usbd_hid_init_intf	24	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t_2/USER/CherryUSB/class/hid/usbd_hid.c:77:13:usbd_hid_get_report	16	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t_2/USER/CherryUSB/class/hid/usbd_hid.c:87:16:usbd_hid_get_idle	16	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t_2/USER/CherryUSB/class/hid/usbd_hid.c:95:16:usbd_hid_get_protocol	16	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t_2/USER/CherryUSB/class/hid/usbd_hid.c:102:13:usbd_hid_set_report	16	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t_2/USER/CherryUSB/class/hid/usbd_hid.c:112:13:usbd_hid_set_idle	16	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t_2/USER/CherryUSB/class/hid/usbd_hid.c:120:13:usbd_hid_set_protocol	16	static

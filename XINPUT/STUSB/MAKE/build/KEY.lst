@@ -1,0 +1,529 @@
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\cchHNPzC.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"KEY.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "USER/BSP/KEY.c"
+  18              		.section	.text.KEY_SCAN,"ax",%progbits
+  19              		.align	1
+  20              		.global	KEY_SCAN
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  25              	KEY_SCAN:
+  26              	.LVL0:
+  27              	.LFB0:
+   1:USER/BSP/KEY.c **** #include "KEY.h"
+   2:USER/BSP/KEY.c **** 
+   3:USER/BSP/KEY.c **** /*******************************************************************************
+   4:USER/BSP/KEY.c ****  * 函数名：KEY_SCAN
+   5:USER/BSP/KEY.c ****  * 描述  ：按键扫描算法
+   6:USER/BSP/KEY.c ****  * 输入  KEY_HandleTypeDef	 KEYx句柄 KEY_NUM 按键个数
+   7:USER/BSP/KEY.c ****  * 输出  ：void
+   8:USER/BSP/KEY.c ****  * 调用  ：外部调用
+   9:USER/BSP/KEY.c ****  * 备注  ：建议放中断中 15ms扫描一次 扫描权重目前是4组电平变化即0X0f
+  10:USER/BSP/KEY.c ****  *******************************************************************************/
+  11:USER/BSP/KEY.c **** void KEY_SCAN(KEY_HandleTypeDef* KEYx,KEY_U32 KEY_NUM)
+  12:USER/BSP/KEY.c **** {
+  28              		.loc 1 12 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		.loc 1 12 1 is_stmt 0 view .LVU1
+  33 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 32
+  36              		.cfi_offset 3, -32
+  37              		.cfi_offset 4, -28
+  38              		.cfi_offset 5, -24
+  39              		.cfi_offset 6, -20
+  40              		.cfi_offset 7, -16
+  41              		.cfi_offset 8, -12
+  42              		.cfi_offset 9, -8
+  43              		.cfi_offset 14, -4
+  44 0004 0546     		mov	r5, r0
+  13:USER/BSP/KEY.c **** 
+  14:USER/BSP/KEY.c ****     KEY_U8 a = 0;
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\cchHNPzC.s 			page 2
+
+
+  45              		.loc 1 14 5 is_stmt 1 view .LVU2
+  46              	.LVL1:
+  15:USER/BSP/KEY.c ****     KEY_U8 b = 0;
+  47              		.loc 1 15 5 view .LVU3
+  16:USER/BSP/KEY.c **** 
+  17:USER/BSP/KEY.c ****     for(a = 0;a < KEY_NUM/8;a++)
+  48              		.loc 1 17 5 view .LVU4
+  49              		.loc 1 17 11 is_stmt 0 view .LVU5
+  50 0006 0024     		movs	r4, #0
+  51              		.loc 1 17 5 view .LVU6
+  52 0008 15E0     		b	.L2
+  53              	.LVL2:
+  54              	.L3:
+  18:USER/BSP/KEY.c ****     {
+  19:USER/BSP/KEY.c ****         for(b = 0;b < 8;b++)
+  20:USER/BSP/KEY.c ****         {
+  21:USER/BSP/KEY.c ****             KEYx->KEY_BUF[a*8+b] = (KEYx->KEY_BUF[a*8+b]<<1)|((KEYx->KEY_VALUE[a]&(0x01<<b))>>b);
+  55              		.loc 1 21 13 is_stmt 1 view .LVU7
+  56              		.loc 1 21 41 is_stmt 0 view .LVU8
+  57 000a D5F804C0 		ldr	ip, [r5, #4]
+  58              		.loc 1 21 54 view .LVU9
+  59 000e 03EBC407 		add	r7, r3, r4, lsl #3
+  60              		.loc 1 21 50 view .LVU10
+  61 0012 1CF807E0 		ldrb	lr, [ip, r7]	@ zero_extendqisi2
+  62              		.loc 1 21 68 view .LVU11
+  63 0016 2A68     		ldr	r2, [r5]
+  64              		.loc 1 21 79 view .LVU12
+  65 0018 925D     		ldrb	r2, [r2, r6]	@ zero_extendqisi2
+  66              		.loc 1 21 88 view .LVU13
+  67 001a 0120     		movs	r0, #1
+  68 001c 9840     		lsls	r0, r0, r3
+  69              		.loc 1 21 82 view .LVU14
+  70 001e 0240     		ands	r2, r2, r0
+  71              		.loc 1 21 93 view .LVU15
+  72 0020 1A41     		asrs	r2, r2, r3
+  73              		.loc 1 21 61 view .LVU16
+  74 0022 42EA4E02 		orr	r2, r2, lr, lsl #1
+  75              		.loc 1 21 34 view .LVU17
+  76 0026 0CF80720 		strb	r2, [ip, r7]
+  19:USER/BSP/KEY.c ****         {
+  77              		.loc 1 19 26 is_stmt 1 discriminator 3 view .LVU18
+  78 002a 0133     		adds	r3, r3, #1
+  79              	.LVL3:
+  19:USER/BSP/KEY.c ****         {
+  80              		.loc 1 19 26 is_stmt 0 discriminator 3 view .LVU19
+  81 002c DBB2     		uxtb	r3, r3
+  82              	.LVL4:
+  83              	.L4:
+  19:USER/BSP/KEY.c ****         {
+  84              		.loc 1 19 21 is_stmt 1 discriminator 1 view .LVU20
+  85 002e 072B     		cmp	r3, #7
+  86 0030 EBD9     		bls	.L3
+  17:USER/BSP/KEY.c ****     {
+  87              		.loc 1 17 30 discriminator 2 view .LVU21
+  88 0032 0134     		adds	r4, r4, #1
+  89              	.LVL5:
+  17:USER/BSP/KEY.c ****     {
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\cchHNPzC.s 			page 3
+
+
+  90              		.loc 1 17 30 is_stmt 0 discriminator 2 view .LVU22
+  91 0034 E4B2     		uxtb	r4, r4
+  92              	.LVL6:
+  93              	.L2:
+  17:USER/BSP/KEY.c ****     {
+  94              		.loc 1 17 17 is_stmt 1 discriminator 1 view .LVU23
+  95 0036 2646     		mov	r6, r4
+  17:USER/BSP/KEY.c ****     {
+  96              		.loc 1 17 26 is_stmt 0 discriminator 1 view .LVU24
+  97 0038 4FEAD109 		lsr	r9, r1, #3
+  17:USER/BSP/KEY.c ****     {
+  98              		.loc 1 17 17 discriminator 1 view .LVU25
+  99 003c B4EBD10F 		cmp	r4, r1, lsr #3
+ 100 0040 01D2     		bcs	.L19
+  19:USER/BSP/KEY.c ****         {
+ 101              		.loc 1 19 15 view .LVU26
+ 102 0042 0023     		movs	r3, #0
+ 103 0044 F3E7     		b	.L4
+ 104              	.L19:
+  22:USER/BSP/KEY.c ****         }
+  23:USER/BSP/KEY.c ****     }
+  24:USER/BSP/KEY.c **** 
+  25:USER/BSP/KEY.c ****     for(b = 0;b<KEY_NUM%8;b++)
+ 105              		.loc 1 25 11 view .LVU27
+ 106 0046 0023     		movs	r3, #0
+ 107 0048 11E0     		b	.L5
+ 108              	.LVL7:
+ 109              	.L6:
+  26:USER/BSP/KEY.c ****     {
+  27:USER/BSP/KEY.c ****          KEYx->KEY_BUF[a*8+b] = (KEYx->KEY_BUF[a*8+b]<<1)|((KEYx->KEY_VALUE[a]&(0x01<<b))>>b);
+ 110              		.loc 1 27 10 is_stmt 1 view .LVU28
+ 111              		.loc 1 27 38 is_stmt 0 view .LVU29
+ 112 004a D5F804C0 		ldr	ip, [r5, #4]
+ 113              		.loc 1 27 51 view .LVU30
+ 114 004e 03EBC407 		add	r7, r3, r4, lsl #3
+ 115              		.loc 1 27 47 view .LVU31
+ 116 0052 1CF807E0 		ldrb	lr, [ip, r7]	@ zero_extendqisi2
+ 117              		.loc 1 27 65 view .LVU32
+ 118 0056 2A68     		ldr	r2, [r5]
+ 119              		.loc 1 27 76 view .LVU33
+ 120 0058 925D     		ldrb	r2, [r2, r6]	@ zero_extendqisi2
+ 121              		.loc 1 27 85 view .LVU34
+ 122 005a 0120     		movs	r0, #1
+ 123 005c 9840     		lsls	r0, r0, r3
+ 124              		.loc 1 27 79 view .LVU35
+ 125 005e 0240     		ands	r2, r2, r0
+ 126              		.loc 1 27 90 view .LVU36
+ 127 0060 1A41     		asrs	r2, r2, r3
+ 128              		.loc 1 27 58 view .LVU37
+ 129 0062 42EA4E02 		orr	r2, r2, lr, lsl #1
+ 130              		.loc 1 27 31 view .LVU38
+ 131 0066 0CF80720 		strb	r2, [ip, r7]
+  25:USER/BSP/KEY.c ****     {
+ 132              		.loc 1 25 28 is_stmt 1 discriminator 3 view .LVU39
+ 133 006a 0133     		adds	r3, r3, #1
+ 134              	.LVL8:
+  25:USER/BSP/KEY.c ****     {
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\cchHNPzC.s 			page 4
+
+
+ 135              		.loc 1 25 28 is_stmt 0 discriminator 3 view .LVU40
+ 136 006c DBB2     		uxtb	r3, r3
+ 137              	.LVL9:
+ 138              	.L5:
+  25:USER/BSP/KEY.c ****     {
+ 139              		.loc 1 25 16 is_stmt 1 discriminator 1 view .LVU41
+  25:USER/BSP/KEY.c ****     {
+ 140              		.loc 1 25 24 is_stmt 0 discriminator 1 view .LVU42
+ 141 006e 01F00708 		and	r8, r1, #7
+  25:USER/BSP/KEY.c ****     {
+ 142              		.loc 1 25 16 discriminator 1 view .LVU43
+ 143 0072 4345     		cmp	r3, r8
+ 144 0074 E9D3     		bcc	.L6
+  28:USER/BSP/KEY.c ****     }
+  29:USER/BSP/KEY.c **** 
+  30:USER/BSP/KEY.c ****     for(a = 0;a < KEY_NUM/8;a++)
+ 145              		.loc 1 30 11 view .LVU44
+ 146 0076 0027     		movs	r7, #0
+ 147 0078 45E0     		b	.L7
+ 148              	.LVL10:
+ 149              	.L21:
+  31:USER/BSP/KEY.c ****     {
+  32:USER/BSP/KEY.c ****         for(b = 0;b < 8;b++)
+  33:USER/BSP/KEY.c ****         {
+  34:USER/BSP/KEY.c ****             if(((KEYx->KEY_BUF[(a<<3)+b])&0x0F) == 0x0F)
+  35:USER/BSP/KEY.c ****             {
+  36:USER/BSP/KEY.c ****                 KEYx->KEY_NOW_STATE[a] |= (0x01<<b);
+ 150              		.loc 1 36 17 is_stmt 1 view .LVU45
+ 151              		.loc 1 36 21 is_stmt 0 view .LVU46
+ 152 007a A968     		ldr	r1, [r5, #8]
+ 153              		.loc 1 36 36 view .LVU47
+ 154 007c 8A5D     		ldrb	r2, [r1, r6]	@ zero_extendqisi2
+ 155              		.loc 1 36 48 view .LVU48
+ 156 007e 0123     		movs	r3, #1
+ 157 0080 A340     		lsls	r3, r3, r4
+ 158 0082 DBB2     		uxtb	r3, r3
+ 159              		.loc 1 36 40 view .LVU49
+ 160 0084 1A43     		orrs	r2, r2, r3
+ 161 0086 8A55     		strb	r2, [r1, r6]
+  37:USER/BSP/KEY.c ****                 if((KEYx->KEY_NOW_STATE[a]&(0x01<<b)) != (KEYx->KEY_OLD_STATE[a]&(0x01<<b)))
+ 162              		.loc 1 37 17 is_stmt 1 view .LVU50
+ 163              		.loc 1 37 25 is_stmt 0 view .LVU51
+ 164 0088 AA68     		ldr	r2, [r5, #8]
+ 165              		.loc 1 37 40 view .LVU52
+ 166 008a 925D     		ldrb	r2, [r2, r6]	@ zero_extendqisi2
+ 167              		.loc 1 37 63 view .LVU53
+ 168 008c D5F80CC0 		ldr	ip, [r5, #12]
+ 169              		.loc 1 37 78 view .LVU54
+ 170 0090 1CF80610 		ldrb	r1, [ip, r6]	@ zero_extendqisi2
+ 171              		.loc 1 37 55 view .LVU55
+ 172 0094 4A40     		eors	r2, r2, r1
+ 173 0096 2241     		asrs	r2, r2, r4
+ 174              		.loc 1 37 19 view .LVU56
+ 175 0098 12F0010F 		tst	r2, #1
+ 176 009c 04D0     		beq	.L9
+  38:USER/BSP/KEY.c ****                 {
+  39:USER/BSP/KEY.c ****                     KEYx->KEY_OLD_STATE[a] |= (0x01<<b);
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\cchHNPzC.s 			page 5
+
+
+ 177              		.loc 1 39 21 is_stmt 1 view .LVU57
+ 178              		.loc 1 39 44 is_stmt 0 view .LVU58
+ 179 009e 1943     		orrs	r1, r1, r3
+ 180 00a0 0CF80610 		strb	r1, [ip, r6]
+  40:USER/BSP/KEY.c ****                     KEYx->Keyaction_HIGH((a<<3)+b);
+ 181              		.loc 1 40 21 is_stmt 1 view .LVU59
+ 182              		.loc 1 40 25 is_stmt 0 view .LVU60
+ 183 00a4 2B69     		ldr	r3, [r5, #16]
+ 184              		.loc 1 40 21 view .LVU61
+ 185 00a6 9847     		blx	r3
+ 186              	.LVL11:
+ 187              	.L9:
+  32:USER/BSP/KEY.c ****         {
+ 188              		.loc 1 32 26 is_stmt 1 discriminator 2 view .LVU62
+ 189 00a8 0134     		adds	r4, r4, #1
+ 190              	.LVL12:
+  32:USER/BSP/KEY.c ****         {
+ 191              		.loc 1 32 26 is_stmt 0 discriminator 2 view .LVU63
+ 192 00aa E4B2     		uxtb	r4, r4
+ 193              	.LVL13:
+ 194              	.L11:
+  32:USER/BSP/KEY.c ****         {
+ 195              		.loc 1 32 21 is_stmt 1 discriminator 1 view .LVU64
+ 196 00ac 072C     		cmp	r4, #7
+ 197 00ae 28D8     		bhi	.L20
+  34:USER/BSP/KEY.c ****             {
+ 198              		.loc 1 34 13 view .LVU65
+  34:USER/BSP/KEY.c ****             {
+ 199              		.loc 1 34 22 is_stmt 0 view .LVU66
+ 200 00b0 6B68     		ldr	r3, [r5, #4]
+  34:USER/BSP/KEY.c ****             {
+ 201              		.loc 1 34 38 view .LVU67
+ 202 00b2 04EBC700 		add	r0, r4, r7, lsl #3
+  34:USER/BSP/KEY.c ****             {
+ 203              		.loc 1 34 31 view .LVU68
+ 204 00b6 1B5C     		ldrb	r3, [r3, r0]	@ zero_extendqisi2
+ 205 00b8 03F00F03 		and	r3, r3, #15
+  34:USER/BSP/KEY.c ****             {
+ 206              		.loc 1 34 15 view .LVU69
+ 207 00bc 0F2B     		cmp	r3, #15
+ 208 00be DCD0     		beq	.L21
+  41:USER/BSP/KEY.c ****                 }
+  42:USER/BSP/KEY.c ****             }
+  43:USER/BSP/KEY.c ****             else if(((KEYx->KEY_BUF[(a<<3)+b])|0xF0) == 0xF0)
+ 209              		.loc 1 43 18 is_stmt 1 view .LVU70
+ 210              		.loc 1 43 20 is_stmt 0 view .LVU71
+ 211 00c0 002B     		cmp	r3, #0
+ 212 00c2 F1D1     		bne	.L9
+  44:USER/BSP/KEY.c ****             {
+  45:USER/BSP/KEY.c ****                 KEYx->KEY_NOW_STATE[a] &= (~(0x01<<b));
+ 213              		.loc 1 45 17 is_stmt 1 view .LVU72
+ 214              		.loc 1 45 21 is_stmt 0 view .LVU73
+ 215 00c4 D5F808C0 		ldr	ip, [r5, #8]
+ 216              		.loc 1 45 36 view .LVU74
+ 217 00c8 1CF806E0 		ldrb	lr, [ip, r6]	@ zero_extendqisi2
+ 218              		.loc 1 45 50 view .LVU75
+ 219 00cc 0123     		movs	r3, #1
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\cchHNPzC.s 			page 6
+
+
+ 220 00ce A340     		lsls	r3, r3, r4
+ 221              		.loc 1 45 40 view .LVU76
+ 222 00d0 DB43     		mvns	r3, r3
+ 223 00d2 D9B2     		uxtb	r1, r3
+ 224 00d4 03EA0E03 		and	r3, r3, lr
+ 225 00d8 0CF80630 		strb	r3, [ip, r6]
+  46:USER/BSP/KEY.c ****                 if((KEYx->KEY_NOW_STATE[a]&(0x01<<b)) != (KEYx->KEY_OLD_STATE[a]&(0x01<<b)))
+ 226              		.loc 1 46 17 is_stmt 1 view .LVU77
+ 227              		.loc 1 46 25 is_stmt 0 view .LVU78
+ 228 00dc AB68     		ldr	r3, [r5, #8]
+ 229              		.loc 1 46 40 view .LVU79
+ 230 00de 9B5D     		ldrb	r3, [r3, r6]	@ zero_extendqisi2
+ 231              		.loc 1 46 63 view .LVU80
+ 232 00e0 D5F80CE0 		ldr	lr, [r5, #12]
+ 233              		.loc 1 46 78 view .LVU81
+ 234 00e4 1EF806C0 		ldrb	ip, [lr, r6]	@ zero_extendqisi2
+ 235              		.loc 1 46 55 view .LVU82
+ 236 00e8 83EA0C03 		eor	r3, r3, ip
+ 237 00ec 2341     		asrs	r3, r3, r4
+ 238              		.loc 1 46 19 view .LVU83
+ 239 00ee 13F0010F 		tst	r3, #1
+ 240 00f2 D9D0     		beq	.L9
+  47:USER/BSP/KEY.c ****                 {
+  48:USER/BSP/KEY.c ****                     KEYx->KEY_OLD_STATE[a] &= (~(0x01<<b));
+ 241              		.loc 1 48 21 is_stmt 1 view .LVU84
+ 242              		.loc 1 48 44 is_stmt 0 view .LVU85
+ 243 00f4 0CEA010C 		and	ip, ip, r1
+ 244 00f8 0EF806C0 		strb	ip, [lr, r6]
+  49:USER/BSP/KEY.c ****                     KEYx->Keyaction_LOW((a<<3)+b);
+ 245              		.loc 1 49 21 is_stmt 1 view .LVU86
+ 246              		.loc 1 49 25 is_stmt 0 view .LVU87
+ 247 00fc 6B69     		ldr	r3, [r5, #20]
+ 248              		.loc 1 49 21 view .LVU88
+ 249 00fe 9847     		blx	r3
+ 250              	.LVL14:
+ 251 0100 D2E7     		b	.L9
+ 252              	.L20:
+  30:USER/BSP/KEY.c ****     {
+ 253              		.loc 1 30 30 is_stmt 1 discriminator 2 view .LVU89
+ 254 0102 0137     		adds	r7, r7, #1
+ 255              	.LVL15:
+  30:USER/BSP/KEY.c ****     {
+ 256              		.loc 1 30 30 is_stmt 0 discriminator 2 view .LVU90
+ 257 0104 FFB2     		uxtb	r7, r7
+ 258              	.LVL16:
+ 259              	.L7:
+  30:USER/BSP/KEY.c ****     {
+ 260              		.loc 1 30 17 is_stmt 1 discriminator 1 view .LVU91
+ 261 0106 3E46     		mov	r6, r7
+ 262 0108 B945     		cmp	r9, r7
+ 263 010a 01D9     		bls	.L22
+  32:USER/BSP/KEY.c ****         {
+ 264              		.loc 1 32 15 is_stmt 0 view .LVU92
+ 265 010c 0024     		movs	r4, #0
+ 266 010e CDE7     		b	.L11
+ 267              	.L22:
+  50:USER/BSP/KEY.c ****                 }
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\cchHNPzC.s 			page 7
+
+
+  51:USER/BSP/KEY.c ****             }
+  52:USER/BSP/KEY.c ****         }
+  53:USER/BSP/KEY.c ****     }
+  54:USER/BSP/KEY.c **** 
+  55:USER/BSP/KEY.c ****     for(b = 0;b<KEY_NUM%8;b++)
+ 268              		.loc 1 55 11 view .LVU93
+ 269 0110 0024     		movs	r4, #0
+ 270 0112 18E0     		b	.L12
+ 271              	.LVL17:
+ 272              	.L24:
+  56:USER/BSP/KEY.c ****     {
+  57:USER/BSP/KEY.c ****         if(((KEYx->KEY_BUF[(a<<3)+b])&0x0F) == 0x0F)
+  58:USER/BSP/KEY.c ****         {
+  59:USER/BSP/KEY.c ****             KEYx->KEY_NOW_STATE[a] |= (0x01<<b);
+ 273              		.loc 1 59 13 is_stmt 1 view .LVU94
+ 274              		.loc 1 59 17 is_stmt 0 view .LVU95
+ 275 0114 A968     		ldr	r1, [r5, #8]
+ 276              		.loc 1 59 32 view .LVU96
+ 277 0116 8A5D     		ldrb	r2, [r1, r6]	@ zero_extendqisi2
+ 278              		.loc 1 59 44 view .LVU97
+ 279 0118 0123     		movs	r3, #1
+ 280 011a A340     		lsls	r3, r3, r4
+ 281 011c DBB2     		uxtb	r3, r3
+ 282              		.loc 1 59 36 view .LVU98
+ 283 011e 1A43     		orrs	r2, r2, r3
+ 284 0120 8A55     		strb	r2, [r1, r6]
+  60:USER/BSP/KEY.c ****             if((KEYx->KEY_NOW_STATE[a]&(0x01<<b)) != (KEYx->KEY_OLD_STATE[a]&(0x01<<b)))
+ 285              		.loc 1 60 13 is_stmt 1 view .LVU99
+ 286              		.loc 1 60 21 is_stmt 0 view .LVU100
+ 287 0122 AA68     		ldr	r2, [r5, #8]
+ 288              		.loc 1 60 36 view .LVU101
+ 289 0124 925D     		ldrb	r2, [r2, r6]	@ zero_extendqisi2
+ 290              		.loc 1 60 59 view .LVU102
+ 291 0126 D5F80CC0 		ldr	ip, [r5, #12]
+ 292              		.loc 1 60 74 view .LVU103
+ 293 012a 1CF80610 		ldrb	r1, [ip, r6]	@ zero_extendqisi2
+ 294              		.loc 1 60 51 view .LVU104
+ 295 012e 4A40     		eors	r2, r2, r1
+ 296 0130 2241     		asrs	r2, r2, r4
+ 297              		.loc 1 60 15 view .LVU105
+ 298 0132 12F0010F 		tst	r2, #1
+ 299 0136 04D0     		beq	.L14
+  61:USER/BSP/KEY.c ****             {
+  62:USER/BSP/KEY.c ****                 KEYx->KEY_OLD_STATE[a] |= (0x01<<b);
+ 300              		.loc 1 62 17 is_stmt 1 view .LVU106
+ 301              		.loc 1 62 40 is_stmt 0 view .LVU107
+ 302 0138 1943     		orrs	r1, r1, r3
+ 303 013a 0CF80610 		strb	r1, [ip, r6]
+  63:USER/BSP/KEY.c ****                 KEYx->Keyaction_HIGH((a<<3)+b);
+ 304              		.loc 1 63 17 is_stmt 1 view .LVU108
+ 305              		.loc 1 63 21 is_stmt 0 view .LVU109
+ 306 013e 2B69     		ldr	r3, [r5, #16]
+ 307              		.loc 1 63 17 view .LVU110
+ 308 0140 9847     		blx	r3
+ 309              	.LVL18:
+ 310              	.L14:
+  55:USER/BSP/KEY.c ****     {
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\cchHNPzC.s 			page 8
+
+
+ 311              		.loc 1 55 28 is_stmt 1 discriminator 2 view .LVU111
+ 312 0142 0134     		adds	r4, r4, #1
+ 313              	.LVL19:
+  55:USER/BSP/KEY.c ****     {
+ 314              		.loc 1 55 28 is_stmt 0 discriminator 2 view .LVU112
+ 315 0144 E4B2     		uxtb	r4, r4
+ 316              	.LVL20:
+ 317              	.L12:
+  55:USER/BSP/KEY.c ****     {
+ 318              		.loc 1 55 16 is_stmt 1 discriminator 1 view .LVU113
+ 319 0146 A045     		cmp	r8, r4
+ 320 0148 26D9     		bls	.L23
+  57:USER/BSP/KEY.c ****         {
+ 321              		.loc 1 57 9 view .LVU114
+  57:USER/BSP/KEY.c ****         {
+ 322              		.loc 1 57 18 is_stmt 0 view .LVU115
+ 323 014a 6B68     		ldr	r3, [r5, #4]
+  57:USER/BSP/KEY.c ****         {
+ 324              		.loc 1 57 34 view .LVU116
+ 325 014c 04EBC700 		add	r0, r4, r7, lsl #3
+  57:USER/BSP/KEY.c ****         {
+ 326              		.loc 1 57 27 view .LVU117
+ 327 0150 1B5C     		ldrb	r3, [r3, r0]	@ zero_extendqisi2
+ 328 0152 03F00F03 		and	r3, r3, #15
+  57:USER/BSP/KEY.c ****         {
+ 329              		.loc 1 57 11 view .LVU118
+ 330 0156 0F2B     		cmp	r3, #15
+ 331 0158 DCD0     		beq	.L24
+  64:USER/BSP/KEY.c ****             }
+  65:USER/BSP/KEY.c ****         }
+  66:USER/BSP/KEY.c ****         else if(((KEYx->KEY_BUF[(a<<3)+b])|0xF0) == 0xF0)
+ 332              		.loc 1 66 14 is_stmt 1 view .LVU119
+ 333              		.loc 1 66 16 is_stmt 0 view .LVU120
+ 334 015a 002B     		cmp	r3, #0
+ 335 015c F1D1     		bne	.L14
+  67:USER/BSP/KEY.c ****         {
+  68:USER/BSP/KEY.c ****             KEYx->KEY_NOW_STATE[a] &= (~(0x01<<b));
+ 336              		.loc 1 68 13 is_stmt 1 view .LVU121
+ 337              		.loc 1 68 17 is_stmt 0 view .LVU122
+ 338 015e A968     		ldr	r1, [r5, #8]
+ 339              		.loc 1 68 32 view .LVU123
+ 340 0160 11F806E0 		ldrb	lr, [r1, r6]	@ zero_extendqisi2
+ 341              		.loc 1 68 46 view .LVU124
+ 342 0164 0123     		movs	r3, #1
+ 343 0166 A340     		lsls	r3, r3, r4
+ 344              		.loc 1 68 36 view .LVU125
+ 345 0168 DB43     		mvns	r3, r3
+ 346 016a 5FFA83FC 		uxtb	ip, r3
+ 347 016e 03EA0E03 		and	r3, r3, lr
+ 348 0172 8B55     		strb	r3, [r1, r6]
+  69:USER/BSP/KEY.c ****             if((KEYx->KEY_NOW_STATE[a]&(0x01<<b)) != (KEYx->KEY_OLD_STATE[a]&(0x01<<b)))
+ 349              		.loc 1 69 13 is_stmt 1 view .LVU126
+ 350              		.loc 1 69 21 is_stmt 0 view .LVU127
+ 351 0174 AB68     		ldr	r3, [r5, #8]
+ 352              		.loc 1 69 36 view .LVU128
+ 353 0176 9B5D     		ldrb	r3, [r3, r6]	@ zero_extendqisi2
+ 354              		.loc 1 69 59 view .LVU129
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\cchHNPzC.s 			page 9
+
+
+ 355 0178 D5F80CE0 		ldr	lr, [r5, #12]
+ 356              		.loc 1 69 74 view .LVU130
+ 357 017c 1EF80610 		ldrb	r1, [lr, r6]	@ zero_extendqisi2
+ 358              		.loc 1 69 51 view .LVU131
+ 359 0180 4B40     		eors	r3, r3, r1
+ 360 0182 2341     		asrs	r3, r3, r4
+ 361              		.loc 1 69 15 view .LVU132
+ 362 0184 13F0010F 		tst	r3, #1
+ 363 0188 DBD0     		beq	.L14
+  70:USER/BSP/KEY.c ****             {
+  71:USER/BSP/KEY.c ****                 KEYx->KEY_OLD_STATE[a] &= (~(0x01<<b));
+ 364              		.loc 1 71 17 is_stmt 1 view .LVU133
+ 365              		.loc 1 71 40 is_stmt 0 view .LVU134
+ 366 018a 01EA0C01 		and	r1, r1, ip
+ 367 018e 0EF80610 		strb	r1, [lr, r6]
+  72:USER/BSP/KEY.c ****                 KEYx->Keyaction_LOW((a<<3)+b);
+ 368              		.loc 1 72 17 is_stmt 1 view .LVU135
+ 369              		.loc 1 72 21 is_stmt 0 view .LVU136
+ 370 0192 6B69     		ldr	r3, [r5, #20]
+ 371              		.loc 1 72 17 view .LVU137
+ 372 0194 9847     		blx	r3
+ 373              	.LVL21:
+ 374 0196 D4E7     		b	.L14
+ 375              	.L23:
+  73:USER/BSP/KEY.c ****             }
+  74:USER/BSP/KEY.c ****         }    
+  75:USER/BSP/KEY.c ****     }
+  76:USER/BSP/KEY.c **** 
+  77:USER/BSP/KEY.c **** }
+ 376              		.loc 1 77 1 view .LVU138
+ 377 0198 BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 378              		.loc 1 77 1 view .LVU139
+ 379              		.cfi_endproc
+ 380              	.LFE0:
+ 382              		.text
+ 383              	.Letext0:
+ 384              		.file 2 "USER/BSP/KEY.h"
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\cchHNPzC.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 KEY.c
+C:\Users\BaiJiang\AppData\Local\Temp\cchHNPzC.s:19     .text.KEY_SCAN:00000000 $t
+C:\Users\BaiJiang\AppData\Local\Temp\cchHNPzC.s:25     .text.KEY_SCAN:00000000 KEY_SCAN
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,1892 @@
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"hid_user.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "USER/CherryUSB/fsdev/hid_user.c"
+  18              		.section	.text.usb_memcpy,"ax",%progbits
+  19              		.align	1
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  24              	usb_memcpy:
+  25              	.LVL0:
+  26              	.LFB24:
+  27              		.file 2 "USER/CherryUSB/common/usb_memcpy.h"
+   1:USER/CherryUSB/common/usb_memcpy.h **** /*
+   2:USER/CherryUSB/common/usb_memcpy.h ****  * Copyright (c) 2024, sakumisu
+   3:USER/CherryUSB/common/usb_memcpy.h ****  *
+   4:USER/CherryUSB/common/usb_memcpy.h ****  * SPDX-License-Identifier: Apache-2.0
+   5:USER/CherryUSB/common/usb_memcpy.h ****  */
+   6:USER/CherryUSB/common/usb_memcpy.h **** #ifndef USB_MEMCPY_H
+   7:USER/CherryUSB/common/usb_memcpy.h **** #define USB_MEMCPY_H
+   8:USER/CherryUSB/common/usb_memcpy.h **** 
+   9:USER/CherryUSB/common/usb_memcpy.h **** #include <stdint.h>
+  10:USER/CherryUSB/common/usb_memcpy.h **** #include <stddef.h>
+  11:USER/CherryUSB/common/usb_memcpy.h **** 
+  12:USER/CherryUSB/common/usb_memcpy.h **** #define ALIGN_UP_DWORD(x) ((uint32_t)(uintptr_t)(x) & (sizeof(uint32_t) - 1))
+  13:USER/CherryUSB/common/usb_memcpy.h **** 
+  14:USER/CherryUSB/common/usb_memcpy.h **** static inline void dword2array(char *addr, uint32_t w)
+  15:USER/CherryUSB/common/usb_memcpy.h **** {
+  16:USER/CherryUSB/common/usb_memcpy.h ****     addr[0] = w;
+  17:USER/CherryUSB/common/usb_memcpy.h ****     addr[1] = w >> 8;
+  18:USER/CherryUSB/common/usb_memcpy.h ****     addr[2] = w >> 16;
+  19:USER/CherryUSB/common/usb_memcpy.h ****     addr[3] = w >> 24;
+  20:USER/CherryUSB/common/usb_memcpy.h **** }
+  21:USER/CherryUSB/common/usb_memcpy.h **** 
+  22:USER/CherryUSB/common/usb_memcpy.h **** static inline void *usb_memcpy(void *s1, const void *s2, size_t n)
+  23:USER/CherryUSB/common/usb_memcpy.h **** {
+  28              		.loc 2 23 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              		.loc 2 23 1 is_stmt 0 view .LVU1
+  34 0000 10B4     		push	{r4}
+  35              	.LCFI0:
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 2
+
+
+  36              		.cfi_def_cfa_offset 4
+  37              		.cfi_offset 4, -4
+  24:USER/CherryUSB/common/usb_memcpy.h ****     char *b1 = (char *)s1;
+  38              		.loc 2 24 5 is_stmt 1 view .LVU2
+  39              	.LVL1:
+  25:USER/CherryUSB/common/usb_memcpy.h ****     const char *b2 = (const char *)s2;
+  40              		.loc 2 25 5 view .LVU3
+  26:USER/CherryUSB/common/usb_memcpy.h ****     uint32_t *w1;
+  41              		.loc 2 26 5 view .LVU4
+  27:USER/CherryUSB/common/usb_memcpy.h ****     const uint32_t *w2;
+  42              		.loc 2 27 5 view .LVU5
+  28:USER/CherryUSB/common/usb_memcpy.h **** 
+  29:USER/CherryUSB/common/usb_memcpy.h ****     if (ALIGN_UP_DWORD(b1) == ALIGN_UP_DWORD(b2)) {
+  43              		.loc 2 29 5 view .LVU6
+  44              		.loc 2 29 28 is_stmt 0 view .LVU7
+  45 0002 80EA0103 		eor	r3, r0, r1
+  46              		.loc 2 29 8 view .LVU8
+  47 0006 13F0030F 		tst	r3, #3
+  48 000a 19D0     		beq	.L21
+  24:USER/CherryUSB/common/usb_memcpy.h ****     const char *b2 = (const char *)s2;
+  49              		.loc 2 24 11 view .LVU9
+  50 000c 0346     		mov	r3, r0
+  51 000e 30E0     		b	.L3
+  52              	.LVL2:
+  53              	.L5:
+  30:USER/CherryUSB/common/usb_memcpy.h ****         while (ALIGN_UP_DWORD(b1) != 0 && n > 0) {
+  31:USER/CherryUSB/common/usb_memcpy.h ****             *b1++ = *b2++;
+  54              		.loc 2 31 13 is_stmt 1 view .LVU10
+  55              		.loc 2 31 21 is_stmt 0 view .LVU11
+  56 0010 11F8014B 		ldrb	r4, [r1], #1	@ zero_extendqisi2
+  57              	.LVL3:
+  58              		.loc 2 31 19 view .LVU12
+  59 0014 03F8014B 		strb	r4, [r3], #1
+  60              	.LVL4:
+  32:USER/CherryUSB/common/usb_memcpy.h ****             --n;
+  61              		.loc 2 32 13 is_stmt 1 view .LVU13
+  62 0018 013A     		subs	r2, r2, #1
+  63              	.LVL5:
+  64              	.L2:
+  30:USER/CherryUSB/common/usb_memcpy.h ****         while (ALIGN_UP_DWORD(b1) != 0 && n > 0) {
+  65              		.loc 2 30 40 view .LVU14
+  66 001a 13F0030F 		tst	r3, #3
+  67 001e 01D0     		beq	.L6
+  30:USER/CherryUSB/common/usb_memcpy.h ****         while (ALIGN_UP_DWORD(b1) != 0 && n > 0) {
+  68              		.loc 2 30 40 is_stmt 0 discriminator 1 view .LVU15
+  69 0020 002A     		cmp	r2, #0
+  70 0022 F5D1     		bne	.L5
+  71              	.LVL6:
+  72              	.L6:
+  33:USER/CherryUSB/common/usb_memcpy.h ****         }
+  34:USER/CherryUSB/common/usb_memcpy.h **** 
+  35:USER/CherryUSB/common/usb_memcpy.h ****         w1 = (uint32_t *)b1;
+  36:USER/CherryUSB/common/usb_memcpy.h ****         w2 = (const uint32_t *)b2;
+  37:USER/CherryUSB/common/usb_memcpy.h **** 
+  38:USER/CherryUSB/common/usb_memcpy.h ****         while (n >= 4 * sizeof(uint32_t)) {
+  73              		.loc 2 38 18 is_stmt 1 view .LVU16
+  74 0024 0F2A     		cmp	r2, #15
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 3
+
+
+  75 0026 12D9     		bls	.L8
+  39:USER/CherryUSB/common/usb_memcpy.h ****             *w1++ = *w2++;
+  76              		.loc 2 39 13 view .LVU17
+  77              	.LVL7:
+  78              		.loc 2 39 21 is_stmt 0 view .LVU18
+  79 0028 0C68     		ldr	r4, [r1]
+  80              		.loc 2 39 19 view .LVU19
+  81 002a 1C60     		str	r4, [r3]
+  40:USER/CherryUSB/common/usb_memcpy.h ****             *w1++ = *w2++;
+  82              		.loc 2 40 13 is_stmt 1 view .LVU20
+  83              	.LVL8:
+  84              		.loc 2 40 21 is_stmt 0 view .LVU21
+  85 002c 4C68     		ldr	r4, [r1, #4]
+  86              		.loc 2 40 19 view .LVU22
+  87 002e 5C60     		str	r4, [r3, #4]
+  41:USER/CherryUSB/common/usb_memcpy.h ****             *w1++ = *w2++;
+  88              		.loc 2 41 13 is_stmt 1 view .LVU23
+  89              	.LVL9:
+  90              		.loc 2 41 21 is_stmt 0 view .LVU24
+  91 0030 8C68     		ldr	r4, [r1, #8]
+  92              		.loc 2 41 19 view .LVU25
+  93 0032 9C60     		str	r4, [r3, #8]
+  42:USER/CherryUSB/common/usb_memcpy.h ****             *w1++ = *w2++;
+  94              		.loc 2 42 13 is_stmt 1 view .LVU26
+  95              	.LVL10:
+  96              		.loc 2 42 21 is_stmt 0 view .LVU27
+  97 0034 CC68     		ldr	r4, [r1, #12]
+  98              		.loc 2 42 19 view .LVU28
+  99 0036 DC60     		str	r4, [r3, #12]
+  43:USER/CherryUSB/common/usb_memcpy.h ****             n -= 4 * sizeof(uint32_t);
+ 100              		.loc 2 43 13 is_stmt 1 view .LVU29
+ 101              		.loc 2 43 15 is_stmt 0 view .LVU30
+ 102 0038 103A     		subs	r2, r2, #16
+ 103              	.LVL11:
+  42:USER/CherryUSB/common/usb_memcpy.h ****             *w1++ = *w2++;
+ 104              		.loc 2 42 24 view .LVU31
+ 105 003a 1031     		adds	r1, r1, #16
+ 106              	.LVL12:
+  42:USER/CherryUSB/common/usb_memcpy.h ****             *w1++ = *w2++;
+ 107              		.loc 2 42 16 view .LVU32
+ 108 003c 1033     		adds	r3, r3, #16
+ 109              	.LVL13:
+  42:USER/CherryUSB/common/usb_memcpy.h ****             *w1++ = *w2++;
+ 110              		.loc 2 42 16 view .LVU33
+ 111 003e F1E7     		b	.L6
+ 112              	.LVL14:
+ 113              	.L21:
+  24:USER/CherryUSB/common/usb_memcpy.h ****     const char *b2 = (const char *)s2;
+ 114              		.loc 2 24 11 view .LVU34
+ 115 0040 0346     		mov	r3, r0
+ 116 0042 EAE7     		b	.L2
+ 117              	.LVL15:
+ 118              	.L9:
+  44:USER/CherryUSB/common/usb_memcpy.h ****         }
+  45:USER/CherryUSB/common/usb_memcpy.h **** 
+  46:USER/CherryUSB/common/usb_memcpy.h ****         while (n >= sizeof(uint32_t)) {
+  47:USER/CherryUSB/common/usb_memcpy.h ****             *w1++ = *w2++;
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 4
+
+
+ 119              		.loc 2 47 13 is_stmt 1 view .LVU35
+ 120              		.loc 2 47 21 is_stmt 0 view .LVU36
+ 121 0044 51F8044B 		ldr	r4, [r1], #4
+ 122              	.LVL16:
+ 123              		.loc 2 47 19 view .LVU37
+ 124 0048 43F8044B 		str	r4, [r3], #4
+ 125              	.LVL17:
+  48:USER/CherryUSB/common/usb_memcpy.h ****             n -= sizeof(uint32_t);
+ 126              		.loc 2 48 13 is_stmt 1 view .LVU38
+ 127              		.loc 2 48 15 is_stmt 0 view .LVU39
+ 128 004c 043A     		subs	r2, r2, #4
+ 129              	.LVL18:
+ 130              	.L8:
+  46:USER/CherryUSB/common/usb_memcpy.h ****             *w1++ = *w2++;
+ 131              		.loc 2 46 18 is_stmt 1 view .LVU40
+ 132 004e 032A     		cmp	r2, #3
+ 133 0050 F8D8     		bhi	.L9
+  46:USER/CherryUSB/common/usb_memcpy.h ****             *w1++ = *w2++;
+ 134              		.loc 2 46 18 is_stmt 0 view .LVU41
+ 135 0052 04E0     		b	.L10
+ 136              	.LVL19:
+ 137              	.L11:
+  49:USER/CherryUSB/common/usb_memcpy.h ****         }
+  50:USER/CherryUSB/common/usb_memcpy.h **** 
+  51:USER/CherryUSB/common/usb_memcpy.h ****         b1 = (char *)w1;
+  52:USER/CherryUSB/common/usb_memcpy.h ****         b2 = (const char *)w2;
+  53:USER/CherryUSB/common/usb_memcpy.h **** 
+  54:USER/CherryUSB/common/usb_memcpy.h ****         while (n--) {
+  55:USER/CherryUSB/common/usb_memcpy.h ****             *b1++ = *b2++;
+ 138              		.loc 2 55 13 is_stmt 1 view .LVU42
+ 139              		.loc 2 55 21 is_stmt 0 view .LVU43
+ 140 0054 11F8012B 		ldrb	r2, [r1], #1	@ zero_extendqisi2
+ 141              	.LVL20:
+ 142              		.loc 2 55 19 view .LVU44
+ 143 0058 03F8012B 		strb	r2, [r3], #1
+ 144              	.LVL21:
+  54:USER/CherryUSB/common/usb_memcpy.h ****             *b1++ = *b2++;
+ 145              		.loc 2 54 17 view .LVU45
+ 146 005c 2246     		mov	r2, r4
+ 147              	.LVL22:
+ 148              	.L10:
+  54:USER/CherryUSB/common/usb_memcpy.h ****             *b1++ = *b2++;
+ 149              		.loc 2 54 16 is_stmt 1 view .LVU46
+  54:USER/CherryUSB/common/usb_memcpy.h ****             *b1++ = *b2++;
+ 150              		.loc 2 54 17 is_stmt 0 view .LVU47
+ 151 005e 541E     		subs	r4, r2, #1
+ 152              	.LVL23:
+  54:USER/CherryUSB/common/usb_memcpy.h ****             *b1++ = *b2++;
+ 153              		.loc 2 54 16 view .LVU48
+ 154 0060 002A     		cmp	r2, #0
+ 155 0062 F7D1     		bne	.L11
+ 156              	.LVL24:
+ 157              	.L12:
+  56:USER/CherryUSB/common/usb_memcpy.h ****         }
+  57:USER/CherryUSB/common/usb_memcpy.h ****     } else {
+  58:USER/CherryUSB/common/usb_memcpy.h ****         while (n > 0 && ALIGN_UP_DWORD(b2) != 0) {
+  59:USER/CherryUSB/common/usb_memcpy.h ****             *b1++ = *b2++;
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 5
+
+
+  60:USER/CherryUSB/common/usb_memcpy.h ****             --n;
+  61:USER/CherryUSB/common/usb_memcpy.h ****         }
+  62:USER/CherryUSB/common/usb_memcpy.h **** 
+  63:USER/CherryUSB/common/usb_memcpy.h ****         w2 = (const uint32_t *)b2;
+  64:USER/CherryUSB/common/usb_memcpy.h **** 
+  65:USER/CherryUSB/common/usb_memcpy.h ****         while (n >= 4 * sizeof(uint32_t)) {
+  66:USER/CherryUSB/common/usb_memcpy.h ****          dword2array(b1, *w2++);
+  67:USER/CherryUSB/common/usb_memcpy.h ****             b1 += sizeof(uint32_t);
+  68:USER/CherryUSB/common/usb_memcpy.h ****          dword2array(b1, *w2++);
+  69:USER/CherryUSB/common/usb_memcpy.h ****             b1 += sizeof(uint32_t);
+  70:USER/CherryUSB/common/usb_memcpy.h ****          dword2array(b1, *w2++);
+  71:USER/CherryUSB/common/usb_memcpy.h ****             b1 += sizeof(uint32_t);
+  72:USER/CherryUSB/common/usb_memcpy.h ****          dword2array(b1, *w2++);
+  73:USER/CherryUSB/common/usb_memcpy.h ****             b1 += sizeof(uint32_t);
+  74:USER/CherryUSB/common/usb_memcpy.h ****             n -= 4 * sizeof(uint32_t);
+  75:USER/CherryUSB/common/usb_memcpy.h ****         }
+  76:USER/CherryUSB/common/usb_memcpy.h **** 
+  77:USER/CherryUSB/common/usb_memcpy.h ****         while (n >= sizeof(uint32_t)) {
+  78:USER/CherryUSB/common/usb_memcpy.h ****          dword2array(b1, *w2++);
+  79:USER/CherryUSB/common/usb_memcpy.h ****             b1 += sizeof(uint32_t);
+  80:USER/CherryUSB/common/usb_memcpy.h ****             n -= sizeof(uint32_t);
+  81:USER/CherryUSB/common/usb_memcpy.h ****         }
+  82:USER/CherryUSB/common/usb_memcpy.h **** 
+  83:USER/CherryUSB/common/usb_memcpy.h ****         b2 = (const char *)w2;
+  84:USER/CherryUSB/common/usb_memcpy.h **** 
+  85:USER/CherryUSB/common/usb_memcpy.h ****         while (n--) {
+  86:USER/CherryUSB/common/usb_memcpy.h ****             *b1++ = *b2++;
+  87:USER/CherryUSB/common/usb_memcpy.h ****         }
+  88:USER/CherryUSB/common/usb_memcpy.h ****     }
+  89:USER/CherryUSB/common/usb_memcpy.h ****     return s1;
+ 158              		.loc 2 89 5 is_stmt 1 view .LVU49
+  90:USER/CherryUSB/common/usb_memcpy.h **** }
+ 159              		.loc 2 90 1 is_stmt 0 view .LVU50
+ 160 0064 10BC     		pop	{r4}
+ 161              	.LCFI1:
+ 162              		.cfi_remember_state
+ 163              		.cfi_restore 4
+ 164              		.cfi_def_cfa_offset 0
+ 165              	.LVL25:
+ 166              		.loc 2 90 1 view .LVU51
+ 167 0066 7047     		bx	lr
+ 168              	.LVL26:
+ 169              	.L14:
+ 170              	.LCFI2:
+ 171              		.cfi_restore_state
+  59:USER/CherryUSB/common/usb_memcpy.h ****             --n;
+ 172              		.loc 2 59 13 is_stmt 1 view .LVU52
+  59:USER/CherryUSB/common/usb_memcpy.h ****             --n;
+ 173              		.loc 2 59 21 is_stmt 0 view .LVU53
+ 174 0068 11F8014B 		ldrb	r4, [r1], #1	@ zero_extendqisi2
+ 175              	.LVL27:
+  59:USER/CherryUSB/common/usb_memcpy.h ****             --n;
+ 176              		.loc 2 59 19 view .LVU54
+ 177 006c 03F8014B 		strb	r4, [r3], #1
+ 178              	.LVL28:
+  60:USER/CherryUSB/common/usb_memcpy.h ****         }
+ 179              		.loc 2 60 13 is_stmt 1 view .LVU55
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 6
+
+
+ 180 0070 013A     		subs	r2, r2, #1
+ 181              	.LVL29:
+ 182              	.L3:
+  58:USER/CherryUSB/common/usb_memcpy.h ****             *b1++ = *b2++;
+ 183              		.loc 2 58 22 view .LVU56
+ 184 0072 12B1     		cbz	r2, .L15
+  58:USER/CherryUSB/common/usb_memcpy.h ****             *b1++ = *b2++;
+ 185              		.loc 2 58 22 is_stmt 0 discriminator 1 view .LVU57
+ 186 0074 11F0030F 		tst	r1, #3
+ 187 0078 F6D1     		bne	.L14
+ 188              	.LVL30:
+ 189              	.L15:
+  65:USER/CherryUSB/common/usb_memcpy.h ****          dword2array(b1, *w2++);
+ 190              		.loc 2 65 18 is_stmt 1 view .LVU58
+ 191 007a 0F2A     		cmp	r2, #15
+ 192 007c 42D9     		bls	.L17
+  66:USER/CherryUSB/common/usb_memcpy.h ****             b1 += sizeof(uint32_t);
+ 193              		.loc 2 66 10 view .LVU59
+ 194              	.LVL31:
+  66:USER/CherryUSB/common/usb_memcpy.h ****             b1 += sizeof(uint32_t);
+ 195              		.loc 2 66 10 is_stmt 0 view .LVU60
+ 196 007e 0C68     		ldr	r4, [r1]
+ 197              	.LVL32:
+ 198              	.LBB12:
+ 199              	.LBI12:
+  14:USER/CherryUSB/common/usb_memcpy.h **** {
+ 200              		.loc 2 14 20 is_stmt 1 view .LVU61
+ 201              	.LBB13:
+  16:USER/CherryUSB/common/usb_memcpy.h ****     addr[1] = w >> 8;
+ 202              		.loc 2 16 5 view .LVU62
+  16:USER/CherryUSB/common/usb_memcpy.h ****     addr[1] = w >> 8;
+ 203              		.loc 2 16 13 is_stmt 0 view .LVU63
+ 204 0080 1C70     		strb	r4, [r3]
+  17:USER/CherryUSB/common/usb_memcpy.h ****     addr[2] = w >> 16;
+ 205              		.loc 2 17 5 is_stmt 1 view .LVU64
+  17:USER/CherryUSB/common/usb_memcpy.h ****     addr[2] = w >> 16;
+ 206              		.loc 2 17 17 is_stmt 0 view .LVU65
+ 207 0082 4FEA142C 		lsr	ip, r4, #8
+  17:USER/CherryUSB/common/usb_memcpy.h ****     addr[2] = w >> 16;
+ 208              		.loc 2 17 13 view .LVU66
+ 209 0086 83F801C0 		strb	ip, [r3, #1]
+  18:USER/CherryUSB/common/usb_memcpy.h ****     addr[3] = w >> 24;
+ 210              		.loc 2 18 5 is_stmt 1 view .LVU67
+  18:USER/CherryUSB/common/usb_memcpy.h ****     addr[3] = w >> 24;
+ 211              		.loc 2 18 17 is_stmt 0 view .LVU68
+ 212 008a 4FEA144C 		lsr	ip, r4, #16
+  18:USER/CherryUSB/common/usb_memcpy.h ****     addr[3] = w >> 24;
+ 213              		.loc 2 18 13 view .LVU69
+ 214 008e 83F802C0 		strb	ip, [r3, #2]
+  19:USER/CherryUSB/common/usb_memcpy.h **** }
+ 215              		.loc 2 19 5 is_stmt 1 view .LVU70
+  19:USER/CherryUSB/common/usb_memcpy.h **** }
+ 216              		.loc 2 19 17 is_stmt 0 view .LVU71
+ 217 0092 240E     		lsrs	r4, r4, #24
+ 218              	.LVL33:
+  19:USER/CherryUSB/common/usb_memcpy.h **** }
+ 219              		.loc 2 19 13 view .LVU72
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 7
+
+
+ 220 0094 DC70     		strb	r4, [r3, #3]
+ 221              	.LVL34:
+  19:USER/CherryUSB/common/usb_memcpy.h **** }
+ 222              		.loc 2 19 13 view .LVU73
+ 223              	.LBE13:
+ 224              	.LBE12:
+  67:USER/CherryUSB/common/usb_memcpy.h ****          dword2array(b1, *w2++);
+ 225              		.loc 2 67 13 is_stmt 1 view .LVU74
+  68:USER/CherryUSB/common/usb_memcpy.h ****             b1 += sizeof(uint32_t);
+ 226              		.loc 2 68 10 view .LVU75
+  68:USER/CherryUSB/common/usb_memcpy.h ****             b1 += sizeof(uint32_t);
+ 227              		.loc 2 68 10 is_stmt 0 view .LVU76
+ 228 0096 4C68     		ldr	r4, [r1, #4]
+ 229              	.LVL35:
+ 230              	.LBB14:
+ 231              	.LBI14:
+  14:USER/CherryUSB/common/usb_memcpy.h **** {
+ 232              		.loc 2 14 20 is_stmt 1 view .LVU77
+ 233              	.LBB15:
+  16:USER/CherryUSB/common/usb_memcpy.h ****     addr[1] = w >> 8;
+ 234              		.loc 2 16 5 view .LVU78
+  16:USER/CherryUSB/common/usb_memcpy.h ****     addr[1] = w >> 8;
+ 235              		.loc 2 16 13 is_stmt 0 view .LVU79
+ 236 0098 1C71     		strb	r4, [r3, #4]
+  17:USER/CherryUSB/common/usb_memcpy.h ****     addr[2] = w >> 16;
+ 237              		.loc 2 17 5 is_stmt 1 view .LVU80
+  17:USER/CherryUSB/common/usb_memcpy.h ****     addr[2] = w >> 16;
+ 238              		.loc 2 17 17 is_stmt 0 view .LVU81
+ 239 009a 4FEA142C 		lsr	ip, r4, #8
+  17:USER/CherryUSB/common/usb_memcpy.h ****     addr[2] = w >> 16;
+ 240              		.loc 2 17 13 view .LVU82
+ 241 009e 83F805C0 		strb	ip, [r3, #5]
+  18:USER/CherryUSB/common/usb_memcpy.h ****     addr[3] = w >> 24;
+ 242              		.loc 2 18 5 is_stmt 1 view .LVU83
+  18:USER/CherryUSB/common/usb_memcpy.h ****     addr[3] = w >> 24;
+ 243              		.loc 2 18 17 is_stmt 0 view .LVU84
+ 244 00a2 4FEA144C 		lsr	ip, r4, #16
+  18:USER/CherryUSB/common/usb_memcpy.h ****     addr[3] = w >> 24;
+ 245              		.loc 2 18 13 view .LVU85
+ 246 00a6 83F806C0 		strb	ip, [r3, #6]
+  19:USER/CherryUSB/common/usb_memcpy.h **** }
+ 247              		.loc 2 19 5 is_stmt 1 view .LVU86
+  19:USER/CherryUSB/common/usb_memcpy.h **** }
+ 248              		.loc 2 19 17 is_stmt 0 view .LVU87
+ 249 00aa 240E     		lsrs	r4, r4, #24
+ 250              	.LVL36:
+  19:USER/CherryUSB/common/usb_memcpy.h **** }
+ 251              		.loc 2 19 13 view .LVU88
+ 252 00ac DC71     		strb	r4, [r3, #7]
+ 253              	.LVL37:
+  19:USER/CherryUSB/common/usb_memcpy.h **** }
+ 254              		.loc 2 19 13 view .LVU89
+ 255              	.LBE15:
+ 256              	.LBE14:
+  69:USER/CherryUSB/common/usb_memcpy.h ****          dword2array(b1, *w2++);
+ 257              		.loc 2 69 13 is_stmt 1 view .LVU90
+  70:USER/CherryUSB/common/usb_memcpy.h ****             b1 += sizeof(uint32_t);
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 8
+
+
+ 258              		.loc 2 70 10 view .LVU91
+  70:USER/CherryUSB/common/usb_memcpy.h ****             b1 += sizeof(uint32_t);
+ 259              		.loc 2 70 10 is_stmt 0 view .LVU92
+ 260 00ae 8C68     		ldr	r4, [r1, #8]
+ 261              	.LVL38:
+ 262              	.LBB16:
+ 263              	.LBI16:
+  14:USER/CherryUSB/common/usb_memcpy.h **** {
+ 264              		.loc 2 14 20 is_stmt 1 view .LVU93
+ 265              	.LBB17:
+  16:USER/CherryUSB/common/usb_memcpy.h ****     addr[1] = w >> 8;
+ 266              		.loc 2 16 5 view .LVU94
+  16:USER/CherryUSB/common/usb_memcpy.h ****     addr[1] = w >> 8;
+ 267              		.loc 2 16 13 is_stmt 0 view .LVU95
+ 268 00b0 1C72     		strb	r4, [r3, #8]
+  17:USER/CherryUSB/common/usb_memcpy.h ****     addr[2] = w >> 16;
+ 269              		.loc 2 17 5 is_stmt 1 view .LVU96
+  17:USER/CherryUSB/common/usb_memcpy.h ****     addr[2] = w >> 16;
+ 270              		.loc 2 17 17 is_stmt 0 view .LVU97
+ 271 00b2 4FEA142C 		lsr	ip, r4, #8
+  17:USER/CherryUSB/common/usb_memcpy.h ****     addr[2] = w >> 16;
+ 272              		.loc 2 17 13 view .LVU98
+ 273 00b6 83F809C0 		strb	ip, [r3, #9]
+  18:USER/CherryUSB/common/usb_memcpy.h ****     addr[3] = w >> 24;
+ 274              		.loc 2 18 5 is_stmt 1 view .LVU99
+  18:USER/CherryUSB/common/usb_memcpy.h ****     addr[3] = w >> 24;
+ 275              		.loc 2 18 17 is_stmt 0 view .LVU100
+ 276 00ba 4FEA144C 		lsr	ip, r4, #16
+  18:USER/CherryUSB/common/usb_memcpy.h ****     addr[3] = w >> 24;
+ 277              		.loc 2 18 13 view .LVU101
+ 278 00be 83F80AC0 		strb	ip, [r3, #10]
+  19:USER/CherryUSB/common/usb_memcpy.h **** }
+ 279              		.loc 2 19 5 is_stmt 1 view .LVU102
+  19:USER/CherryUSB/common/usb_memcpy.h **** }
+ 280              		.loc 2 19 17 is_stmt 0 view .LVU103
+ 281 00c2 240E     		lsrs	r4, r4, #24
+ 282              	.LVL39:
+  19:USER/CherryUSB/common/usb_memcpy.h **** }
+ 283              		.loc 2 19 13 view .LVU104
+ 284 00c4 DC72     		strb	r4, [r3, #11]
+ 285              	.LVL40:
+  19:USER/CherryUSB/common/usb_memcpy.h **** }
+ 286              		.loc 2 19 13 view .LVU105
+ 287              	.LBE17:
+ 288              	.LBE16:
+  71:USER/CherryUSB/common/usb_memcpy.h ****          dword2array(b1, *w2++);
+ 289              		.loc 2 71 13 is_stmt 1 view .LVU106
+  72:USER/CherryUSB/common/usb_memcpy.h ****             b1 += sizeof(uint32_t);
+ 290              		.loc 2 72 10 view .LVU107
+  72:USER/CherryUSB/common/usb_memcpy.h ****             b1 += sizeof(uint32_t);
+ 291              		.loc 2 72 10 is_stmt 0 view .LVU108
+ 292 00c6 CC68     		ldr	r4, [r1, #12]
+ 293              	.LVL41:
+ 294              	.LBB18:
+ 295              	.LBI18:
+  14:USER/CherryUSB/common/usb_memcpy.h **** {
+ 296              		.loc 2 14 20 is_stmt 1 view .LVU109
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 9
+
+
+ 297              	.LBB19:
+  16:USER/CherryUSB/common/usb_memcpy.h ****     addr[1] = w >> 8;
+ 298              		.loc 2 16 5 view .LVU110
+  16:USER/CherryUSB/common/usb_memcpy.h ****     addr[1] = w >> 8;
+ 299              		.loc 2 16 13 is_stmt 0 view .LVU111
+ 300 00c8 1C73     		strb	r4, [r3, #12]
+  17:USER/CherryUSB/common/usb_memcpy.h ****     addr[2] = w >> 16;
+ 301              		.loc 2 17 5 is_stmt 1 view .LVU112
+  17:USER/CherryUSB/common/usb_memcpy.h ****     addr[2] = w >> 16;
+ 302              		.loc 2 17 17 is_stmt 0 view .LVU113
+ 303 00ca 4FEA142C 		lsr	ip, r4, #8
+  17:USER/CherryUSB/common/usb_memcpy.h ****     addr[2] = w >> 16;
+ 304              		.loc 2 17 13 view .LVU114
+ 305 00ce 83F80DC0 		strb	ip, [r3, #13]
+  18:USER/CherryUSB/common/usb_memcpy.h ****     addr[3] = w >> 24;
+ 306              		.loc 2 18 5 is_stmt 1 view .LVU115
+  18:USER/CherryUSB/common/usb_memcpy.h ****     addr[3] = w >> 24;
+ 307              		.loc 2 18 17 is_stmt 0 view .LVU116
+ 308 00d2 4FEA144C 		lsr	ip, r4, #16
+  18:USER/CherryUSB/common/usb_memcpy.h ****     addr[3] = w >> 24;
+ 309              		.loc 2 18 13 view .LVU117
+ 310 00d6 83F80EC0 		strb	ip, [r3, #14]
+  19:USER/CherryUSB/common/usb_memcpy.h **** }
+ 311              		.loc 2 19 5 is_stmt 1 view .LVU118
+  19:USER/CherryUSB/common/usb_memcpy.h **** }
+ 312              		.loc 2 19 17 is_stmt 0 view .LVU119
+ 313 00da 240E     		lsrs	r4, r4, #24
+ 314              	.LVL42:
+  19:USER/CherryUSB/common/usb_memcpy.h **** }
+ 315              		.loc 2 19 13 view .LVU120
+ 316 00dc DC73     		strb	r4, [r3, #15]
+ 317              	.LVL43:
+  19:USER/CherryUSB/common/usb_memcpy.h **** }
+ 318              		.loc 2 19 13 view .LVU121
+ 319              	.LBE19:
+ 320              	.LBE18:
+  73:USER/CherryUSB/common/usb_memcpy.h ****             n -= 4 * sizeof(uint32_t);
+ 321              		.loc 2 73 13 is_stmt 1 view .LVU122
+  73:USER/CherryUSB/common/usb_memcpy.h ****             n -= 4 * sizeof(uint32_t);
+ 322              		.loc 2 73 16 is_stmt 0 view .LVU123
+ 323 00de 1033     		adds	r3, r3, #16
+ 324              	.LVL44:
+  74:USER/CherryUSB/common/usb_memcpy.h ****         }
+ 325              		.loc 2 74 13 is_stmt 1 view .LVU124
+  74:USER/CherryUSB/common/usb_memcpy.h ****         }
+ 326              		.loc 2 74 15 is_stmt 0 view .LVU125
+ 327 00e0 103A     		subs	r2, r2, #16
+ 328              	.LVL45:
+  72:USER/CherryUSB/common/usb_memcpy.h ****             b1 += sizeof(uint32_t);
+ 329              		.loc 2 72 29 view .LVU126
+ 330 00e2 1031     		adds	r1, r1, #16
+ 331              	.LVL46:
+  72:USER/CherryUSB/common/usb_memcpy.h ****             b1 += sizeof(uint32_t);
+ 332              		.loc 2 72 29 view .LVU127
+ 333 00e4 C9E7     		b	.L15
+ 334              	.L18:
+  78:USER/CherryUSB/common/usb_memcpy.h ****             b1 += sizeof(uint32_t);
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 10
+
+
+ 335              		.loc 2 78 10 is_stmt 1 view .LVU128
+ 336              	.LVL47:
+  78:USER/CherryUSB/common/usb_memcpy.h ****             b1 += sizeof(uint32_t);
+ 337              		.loc 2 78 10 is_stmt 0 view .LVU129
+ 338 00e6 51F8044B 		ldr	r4, [r1], #4
+ 339              	.LVL48:
+ 340              	.LBB20:
+ 341              	.LBI20:
+  14:USER/CherryUSB/common/usb_memcpy.h **** {
+ 342              		.loc 2 14 20 is_stmt 1 view .LVU130
+ 343              	.LBB21:
+  16:USER/CherryUSB/common/usb_memcpy.h ****     addr[1] = w >> 8;
+ 344              		.loc 2 16 5 view .LVU131
+  16:USER/CherryUSB/common/usb_memcpy.h ****     addr[1] = w >> 8;
+ 345              		.loc 2 16 13 is_stmt 0 view .LVU132
+ 346 00ea 1C70     		strb	r4, [r3]
+  17:USER/CherryUSB/common/usb_memcpy.h ****     addr[2] = w >> 16;
+ 347              		.loc 2 17 5 is_stmt 1 view .LVU133
+  17:USER/CherryUSB/common/usb_memcpy.h ****     addr[2] = w >> 16;
+ 348              		.loc 2 17 17 is_stmt 0 view .LVU134
+ 349 00ec 4FEA142C 		lsr	ip, r4, #8
+  17:USER/CherryUSB/common/usb_memcpy.h ****     addr[2] = w >> 16;
+ 350              		.loc 2 17 13 view .LVU135
+ 351 00f0 83F801C0 		strb	ip, [r3, #1]
+  18:USER/CherryUSB/common/usb_memcpy.h ****     addr[3] = w >> 24;
+ 352              		.loc 2 18 5 is_stmt 1 view .LVU136
+  18:USER/CherryUSB/common/usb_memcpy.h ****     addr[3] = w >> 24;
+ 353              		.loc 2 18 17 is_stmt 0 view .LVU137
+ 354 00f4 4FEA144C 		lsr	ip, r4, #16
+  18:USER/CherryUSB/common/usb_memcpy.h ****     addr[3] = w >> 24;
+ 355              		.loc 2 18 13 view .LVU138
+ 356 00f8 83F802C0 		strb	ip, [r3, #2]
+  19:USER/CherryUSB/common/usb_memcpy.h **** }
+ 357              		.loc 2 19 5 is_stmt 1 view .LVU139
+  19:USER/CherryUSB/common/usb_memcpy.h **** }
+ 358              		.loc 2 19 17 is_stmt 0 view .LVU140
+ 359 00fc 240E     		lsrs	r4, r4, #24
+ 360              	.LVL49:
+  19:USER/CherryUSB/common/usb_memcpy.h **** }
+ 361              		.loc 2 19 13 view .LVU141
+ 362 00fe DC70     		strb	r4, [r3, #3]
+ 363              	.LVL50:
+  19:USER/CherryUSB/common/usb_memcpy.h **** }
+ 364              		.loc 2 19 13 view .LVU142
+ 365              	.LBE21:
+ 366              	.LBE20:
+  79:USER/CherryUSB/common/usb_memcpy.h ****             n -= sizeof(uint32_t);
+ 367              		.loc 2 79 13 is_stmt 1 view .LVU143
+  79:USER/CherryUSB/common/usb_memcpy.h ****             n -= sizeof(uint32_t);
+ 368              		.loc 2 79 16 is_stmt 0 view .LVU144
+ 369 0100 0433     		adds	r3, r3, #4
+ 370              	.LVL51:
+  80:USER/CherryUSB/common/usb_memcpy.h ****         }
+ 371              		.loc 2 80 13 is_stmt 1 view .LVU145
+  80:USER/CherryUSB/common/usb_memcpy.h ****         }
+ 372              		.loc 2 80 15 is_stmt 0 view .LVU146
+ 373 0102 043A     		subs	r2, r2, #4
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 11
+
+
+ 374              	.LVL52:
+ 375              	.L17:
+  77:USER/CherryUSB/common/usb_memcpy.h ****          dword2array(b1, *w2++);
+ 376              		.loc 2 77 18 is_stmt 1 view .LVU147
+ 377 0104 032A     		cmp	r2, #3
+ 378 0106 EED8     		bhi	.L18
+  77:USER/CherryUSB/common/usb_memcpy.h ****          dword2array(b1, *w2++);
+ 379              		.loc 2 77 18 is_stmt 0 view .LVU148
+ 380 0108 04E0     		b	.L19
+ 381              	.LVL53:
+ 382              	.L20:
+  86:USER/CherryUSB/common/usb_memcpy.h ****         }
+ 383              		.loc 2 86 13 is_stmt 1 view .LVU149
+  86:USER/CherryUSB/common/usb_memcpy.h ****         }
+ 384              		.loc 2 86 21 is_stmt 0 view .LVU150
+ 385 010a 11F8012B 		ldrb	r2, [r1], #1	@ zero_extendqisi2
+ 386              	.LVL54:
+  86:USER/CherryUSB/common/usb_memcpy.h ****         }
+ 387              		.loc 2 86 19 view .LVU151
+ 388 010e 03F8012B 		strb	r2, [r3], #1
+ 389              	.LVL55:
+  85:USER/CherryUSB/common/usb_memcpy.h ****             *b1++ = *b2++;
+ 390              		.loc 2 85 17 view .LVU152
+ 391 0112 2246     		mov	r2, r4
+ 392              	.LVL56:
+ 393              	.L19:
+  85:USER/CherryUSB/common/usb_memcpy.h ****             *b1++ = *b2++;
+ 394              		.loc 2 85 16 is_stmt 1 view .LVU153
+  85:USER/CherryUSB/common/usb_memcpy.h ****             *b1++ = *b2++;
+ 395              		.loc 2 85 17 is_stmt 0 view .LVU154
+ 396 0114 541E     		subs	r4, r2, #1
+ 397              	.LVL57:
+  85:USER/CherryUSB/common/usb_memcpy.h ****             *b1++ = *b2++;
+ 398              		.loc 2 85 16 view .LVU155
+ 399 0116 002A     		cmp	r2, #0
+ 400 0118 F7D1     		bne	.L20
+  85:USER/CherryUSB/common/usb_memcpy.h ****             *b1++ = *b2++;
+ 401              		.loc 2 85 16 view .LVU156
+ 402 011a A3E7     		b	.L12
+ 403              		.cfi_endproc
+ 404              	.LFE24:
+ 406              		.section	.text.device_descriptor_callback,"ax",%progbits
+ 407              		.align	1
+ 408              		.syntax unified
+ 409              		.thumb
+ 410              		.thumb_func
+ 412              	device_descriptor_callback:
+ 413              	.LVL58:
+ 414              	.LFB54:
+   1:USER/CherryUSB/fsdev/hid_user.c **** /*
+   2:USER/CherryUSB/fsdev/hid_user.c ****  * Copyright (c) 2024, sakumisu
+   3:USER/CherryUSB/fsdev/hid_user.c ****  *
+   4:USER/CherryUSB/fsdev/hid_user.c ****  * SPDX-License-Identifier: Apache-2.0
+   5:USER/CherryUSB/fsdev/hid_user.c ****  */
+   6:USER/CherryUSB/fsdev/hid_user.c **** #include "usbd_core.h"
+   7:USER/CherryUSB/fsdev/hid_user.c **** #include "usbd_hid.h"
+   8:USER/CherryUSB/fsdev/hid_user.c **** 
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 12
+
+
+   9:USER/CherryUSB/fsdev/hid_user.c **** #define USBD_VID           0x045e
+  10:USER/CherryUSB/fsdev/hid_user.c **** #define USBD_PID           0x028e
+  11:USER/CherryUSB/fsdev/hid_user.c **** #define USBD_MAX_POWER     100
+  12:USER/CherryUSB/fsdev/hid_user.c **** #define USBD_LANGID_STRING 1033
+  13:USER/CherryUSB/fsdev/hid_user.c **** 
+  14:USER/CherryUSB/fsdev/hid_user.c **** #define HID_INT_EP          0x81
+  15:USER/CherryUSB/fsdev/hid_user.c **** #define HID_INT_EP_SIZE     8
+  16:USER/CherryUSB/fsdev/hid_user.c **** #define HID_INT_EP_INTERVAL 10
+  17:USER/CherryUSB/fsdev/hid_user.c **** 
+  18:USER/CherryUSB/fsdev/hid_user.c **** #define USB_CONFIG_SIZE       34
+  19:USER/CherryUSB/fsdev/hid_user.c **** #define HID_KEYBOARD_REPORT_DESC_SIZE 63
+  20:USER/CherryUSB/fsdev/hid_user.c **** 
+  21:USER/CherryUSB/fsdev/hid_user.c **** static const uint8_t device_descriptor[] = {
+  22:USER/CherryUSB/fsdev/hid_user.c ****     USB_DEVICE_DESCRIPTOR_INIT(USB_2_0, 0XFF, 0XFF, 0XFF, USBD_VID, USBD_PID, 0X0110, 0x01)
+  23:USER/CherryUSB/fsdev/hid_user.c **** };
+  24:USER/CherryUSB/fsdev/hid_user.c **** static const uint8_t config_descriptor[] = {
+  25:USER/CherryUSB/fsdev/hid_user.c ****     XINPUT_CONFIG_DESCRIPTOR
+  26:USER/CherryUSB/fsdev/hid_user.c **** };
+  27:USER/CherryUSB/fsdev/hid_user.c **** 
+  28:USER/CherryUSB/fsdev/hid_user.c **** static const uint8_t device_quality_descriptor[] = {
+  29:USER/CherryUSB/fsdev/hid_user.c ****     ///////////////////////////////////////
+  30:USER/CherryUSB/fsdev/hid_user.c ****     /// device qualifier descriptor
+  31:USER/CherryUSB/fsdev/hid_user.c ****     ///////////////////////////////////////
+  32:USER/CherryUSB/fsdev/hid_user.c ****     0x0a,
+  33:USER/CherryUSB/fsdev/hid_user.c ****     USB_DESCRIPTOR_TYPE_DEVICE_QUALIFIER,
+  34:USER/CherryUSB/fsdev/hid_user.c ****     0x00,
+  35:USER/CherryUSB/fsdev/hid_user.c ****     0x02,
+  36:USER/CherryUSB/fsdev/hid_user.c ****     0x00,
+  37:USER/CherryUSB/fsdev/hid_user.c ****     0x00,
+  38:USER/CherryUSB/fsdev/hid_user.c ****     0x00,
+  39:USER/CherryUSB/fsdev/hid_user.c ****     0x40,
+  40:USER/CherryUSB/fsdev/hid_user.c ****     0x00,
+  41:USER/CherryUSB/fsdev/hid_user.c ****     0x00,
+  42:USER/CherryUSB/fsdev/hid_user.c **** };
+  43:USER/CherryUSB/fsdev/hid_user.c **** static const char *string_descriptors[] = 
+  44:USER/CherryUSB/fsdev/hid_user.c **** {
+  45:USER/CherryUSB/fsdev/hid_user.c ****     (const char[]){ 0x09, 0x04 }, /* Langid */
+  46:USER/CherryUSB/fsdev/hid_user.c ****     "BaiJiang",                  /* Manufacturer */
+  47:USER/CherryUSB/fsdev/hid_user.c ****     "BaiJiang xbox",         /* Product */
+  48:USER/CherryUSB/fsdev/hid_user.c ****      "V1.0",                 /* Serial Number */
+  49:USER/CherryUSB/fsdev/hid_user.c **** };
+  50:USER/CherryUSB/fsdev/hid_user.c **** 
+  51:USER/CherryUSB/fsdev/hid_user.c **** static const uint8_t *device_descriptor_callback(uint8_t speed)
+  52:USER/CherryUSB/fsdev/hid_user.c **** {
+ 415              		.loc 1 52 1 is_stmt 1 view -0
+ 416              		.cfi_startproc
+ 417              		@ args = 0, pretend = 0, frame = 0
+ 418              		@ frame_needed = 0, uses_anonymous_args = 0
+ 419              		@ link register save eliminated.
+  53:USER/CherryUSB/fsdev/hid_user.c ****     return device_descriptor;
+ 420              		.loc 1 53 5 view .LVU158
+  54:USER/CherryUSB/fsdev/hid_user.c **** }
+ 421              		.loc 1 54 1 is_stmt 0 view .LVU159
+ 422 0000 0048     		ldr	r0, .L24
+ 423              	.LVL59:
+ 424              		.loc 1 54 1 view .LVU160
+ 425 0002 7047     		bx	lr
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 13
+
+
+ 426              	.L25:
+ 427              		.align	2
+ 428              	.L24:
+ 429 0004 00000000 		.word	device_descriptor
+ 430              		.cfi_endproc
+ 431              	.LFE54:
+ 433              		.section	.text.config_descriptor_callback,"ax",%progbits
+ 434              		.align	1
+ 435              		.syntax unified
+ 436              		.thumb
+ 437              		.thumb_func
+ 439              	config_descriptor_callback:
+ 440              	.LVL60:
+ 441              	.LFB55:
+  55:USER/CherryUSB/fsdev/hid_user.c **** 
+  56:USER/CherryUSB/fsdev/hid_user.c **** static const uint8_t *config_descriptor_callback(uint8_t speed)
+  57:USER/CherryUSB/fsdev/hid_user.c **** {
+ 442              		.loc 1 57 1 is_stmt 1 view -0
+ 443              		.cfi_startproc
+ 444              		@ args = 0, pretend = 0, frame = 0
+ 445              		@ frame_needed = 0, uses_anonymous_args = 0
+ 446              		@ link register save eliminated.
+  58:USER/CherryUSB/fsdev/hid_user.c ****     return config_descriptor;
+ 447              		.loc 1 58 5 view .LVU162
+  59:USER/CherryUSB/fsdev/hid_user.c **** }
+ 448              		.loc 1 59 1 is_stmt 0 view .LVU163
+ 449 0000 0048     		ldr	r0, .L27
+ 450              	.LVL61:
+ 451              		.loc 1 59 1 view .LVU164
+ 452 0002 7047     		bx	lr
+ 453              	.L28:
+ 454              		.align	2
+ 455              	.L27:
+ 456 0004 00000000 		.word	config_descriptor
+ 457              		.cfi_endproc
+ 458              	.LFE55:
+ 460              		.section	.text.device_quality_descriptor_callback,"ax",%progbits
+ 461              		.align	1
+ 462              		.syntax unified
+ 463              		.thumb
+ 464              		.thumb_func
+ 466              	device_quality_descriptor_callback:
+ 467              	.LVL62:
+ 468              	.LFB56:
+  60:USER/CherryUSB/fsdev/hid_user.c **** 
+  61:USER/CherryUSB/fsdev/hid_user.c **** static const uint8_t *device_quality_descriptor_callback(uint8_t speed)
+  62:USER/CherryUSB/fsdev/hid_user.c **** {
+ 469              		.loc 1 62 1 is_stmt 1 view -0
+ 470              		.cfi_startproc
+ 471              		@ args = 0, pretend = 0, frame = 0
+ 472              		@ frame_needed = 0, uses_anonymous_args = 0
+ 473              		@ link register save eliminated.
+  63:USER/CherryUSB/fsdev/hid_user.c ****     return device_quality_descriptor;
+ 474              		.loc 1 63 5 view .LVU166
+  64:USER/CherryUSB/fsdev/hid_user.c **** }
+ 475              		.loc 1 64 1 is_stmt 0 view .LVU167
+ 476 0000 0048     		ldr	r0, .L30
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 14
+
+
+ 477              	.LVL63:
+ 478              		.loc 1 64 1 view .LVU168
+ 479 0002 7047     		bx	lr
+ 480              	.L31:
+ 481              		.align	2
+ 482              	.L30:
+ 483 0004 00000000 		.word	device_quality_descriptor
+ 484              		.cfi_endproc
+ 485              	.LFE56:
+ 487              		.section	.text.string_descriptor_callback,"ax",%progbits
+ 488              		.align	1
+ 489              		.syntax unified
+ 490              		.thumb
+ 491              		.thumb_func
+ 493              	string_descriptor_callback:
+ 494              	.LVL64:
+ 495              	.LFB57:
+  65:USER/CherryUSB/fsdev/hid_user.c **** 
+  66:USER/CherryUSB/fsdev/hid_user.c **** static const char *string_descriptor_callback(uint8_t speed, uint8_t index)
+  67:USER/CherryUSB/fsdev/hid_user.c **** {
+ 496              		.loc 1 67 1 is_stmt 1 view -0
+ 497              		.cfi_startproc
+ 498              		@ args = 0, pretend = 0, frame = 0
+ 499              		@ frame_needed = 0, uses_anonymous_args = 0
+ 500              		@ link register save eliminated.
+  68:USER/CherryUSB/fsdev/hid_user.c ****     if (index >= (sizeof(string_descriptors) / sizeof(char *))) {
+ 501              		.loc 1 68 5 view .LVU170
+ 502              		.loc 1 68 8 is_stmt 0 view .LVU171
+ 503 0000 0329     		cmp	r1, #3
+ 504 0002 03D8     		bhi	.L34
+  69:USER/CherryUSB/fsdev/hid_user.c ****         return NULL;
+  70:USER/CherryUSB/fsdev/hid_user.c ****     }
+  71:USER/CherryUSB/fsdev/hid_user.c ****     return string_descriptors[index];
+ 505              		.loc 1 71 5 is_stmt 1 view .LVU172
+ 506              		.loc 1 71 30 is_stmt 0 view .LVU173
+ 507 0004 024B     		ldr	r3, .L35
+ 508 0006 53F82100 		ldr	r0, [r3, r1, lsl #2]
+ 509              	.LVL65:
+ 510              		.loc 1 71 30 view .LVU174
+ 511 000a 7047     		bx	lr
+ 512              	.LVL66:
+ 513              	.L34:
+  69:USER/CherryUSB/fsdev/hid_user.c ****         return NULL;
+ 514              		.loc 1 69 16 view .LVU175
+ 515 000c 0020     		movs	r0, #0
+ 516              	.LVL67:
+  72:USER/CherryUSB/fsdev/hid_user.c **** }
+ 517              		.loc 1 72 1 view .LVU176
+ 518 000e 7047     		bx	lr
+ 519              	.L36:
+ 520              		.align	2
+ 521              	.L35:
+ 522 0010 00000000 		.word	string_descriptors
+ 523              		.cfi_endproc
+ 524              	.LFE57:
+ 526              		.section	.text.usbd_hid_int_callback,"ax",%progbits
+ 527              		.align	1
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 15
+
+
+ 528              		.global	usbd_hid_int_callback
+ 529              		.syntax unified
+ 530              		.thumb
+ 531              		.thumb_func
+ 533              	usbd_hid_int_callback:
+ 534              	.LVL68:
+ 535              	.LFB59:
+  73:USER/CherryUSB/fsdev/hid_user.c **** 
+  74:USER/CherryUSB/fsdev/hid_user.c **** const struct usb_descriptor hid_descriptor = {
+  75:USER/CherryUSB/fsdev/hid_user.c ****     .device_descriptor_callback = device_descriptor_callback,
+  76:USER/CherryUSB/fsdev/hid_user.c ****     .config_descriptor_callback = config_descriptor_callback,
+  77:USER/CherryUSB/fsdev/hid_user.c ****     .device_quality_descriptor_callback = device_quality_descriptor_callback,
+  78:USER/CherryUSB/fsdev/hid_user.c ****     .string_descriptor_callback = string_descriptor_callback
+  79:USER/CherryUSB/fsdev/hid_user.c **** };
+  80:USER/CherryUSB/fsdev/hid_user.c **** 
+  81:USER/CherryUSB/fsdev/hid_user.c **** 
+  82:USER/CherryUSB/fsdev/hid_user.c **** #define HID_STATE_IDLE 0
+  83:USER/CherryUSB/fsdev/hid_user.c **** #define HID_STATE_BUSY 1
+  84:USER/CherryUSB/fsdev/hid_user.c **** 
+  85:USER/CherryUSB/fsdev/hid_user.c **** #define HID_MAX_MPS 64
+  86:USER/CherryUSB/fsdev/hid_user.c **** volatile uint8_t read_buffer[HID_MAX_MPS];
+  87:USER/CherryUSB/fsdev/hid_user.c **** volatile uint8_t out_flag = 0;
+  88:USER/CherryUSB/fsdev/hid_user.c **** 
+  89:USER/CherryUSB/fsdev/hid_user.c **** /*!< hid state ! Data can be sent only when state is idle  */
+  90:USER/CherryUSB/fsdev/hid_user.c **** static volatile uint8_t hid_state = HID_STATE_IDLE;
+  91:USER/CherryUSB/fsdev/hid_user.c **** 
+  92:USER/CherryUSB/fsdev/hid_user.c **** static void usbd_event_handler(uint8_t busid, uint8_t event)
+  93:USER/CherryUSB/fsdev/hid_user.c **** {
+  94:USER/CherryUSB/fsdev/hid_user.c ****     switch (event) {
+  95:USER/CherryUSB/fsdev/hid_user.c ****         case USBD_EVENT_RESET:
+  96:USER/CherryUSB/fsdev/hid_user.c ****             break;
+  97:USER/CherryUSB/fsdev/hid_user.c ****         case USBD_EVENT_CONNECTED:
+  98:USER/CherryUSB/fsdev/hid_user.c ****             break;
+  99:USER/CherryUSB/fsdev/hid_user.c ****         case USBD_EVENT_DISCONNECTED:
+ 100:USER/CherryUSB/fsdev/hid_user.c ****             break;
+ 101:USER/CherryUSB/fsdev/hid_user.c ****         case USBD_EVENT_RESUME:
+ 102:USER/CherryUSB/fsdev/hid_user.c ****             break;
+ 103:USER/CherryUSB/fsdev/hid_user.c ****         case USBD_EVENT_SUSPEND:
+ 104:USER/CherryUSB/fsdev/hid_user.c ****             break;
+ 105:USER/CherryUSB/fsdev/hid_user.c ****         case USBD_EVENT_CONFIGURED:
+ 106:USER/CherryUSB/fsdev/hid_user.c ****         usbd_ep_start_read(busid, 0x02, (uint8_t*)read_buffer, HID_MAX_MPS);
+ 107:USER/CherryUSB/fsdev/hid_user.c ****             hid_state = HID_STATE_IDLE;
+ 108:USER/CherryUSB/fsdev/hid_user.c ****             out_flag = 1;
+ 109:USER/CherryUSB/fsdev/hid_user.c ****             break;
+ 110:USER/CherryUSB/fsdev/hid_user.c ****         case USBD_EVENT_SET_REMOTE_WAKEUP:
+ 111:USER/CherryUSB/fsdev/hid_user.c ****             break;
+ 112:USER/CherryUSB/fsdev/hid_user.c ****         case USBD_EVENT_CLR_REMOTE_WAKEUP:
+ 113:USER/CherryUSB/fsdev/hid_user.c ****             break;
+ 114:USER/CherryUSB/fsdev/hid_user.c **** 
+ 115:USER/CherryUSB/fsdev/hid_user.c ****         default:
+ 116:USER/CherryUSB/fsdev/hid_user.c ****             break;
+ 117:USER/CherryUSB/fsdev/hid_user.c ****     }
+ 118:USER/CherryUSB/fsdev/hid_user.c **** }
+ 119:USER/CherryUSB/fsdev/hid_user.c **** 
+ 120:USER/CherryUSB/fsdev/hid_user.c **** void usbd_hid_int_callback(uint8_t busid, uint8_t ep, uint32_t nbytes)
+ 121:USER/CherryUSB/fsdev/hid_user.c **** {
+ 536              		.loc 1 121 1 is_stmt 1 view -0
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 16
+
+
+ 537              		.cfi_startproc
+ 538              		@ args = 0, pretend = 0, frame = 0
+ 539              		@ frame_needed = 0, uses_anonymous_args = 0
+ 540              		@ link register save eliminated.
+ 122:USER/CherryUSB/fsdev/hid_user.c ****     hid_state = HID_STATE_IDLE;
+ 541              		.loc 1 122 5 view .LVU178
+ 542              		.loc 1 122 15 is_stmt 0 view .LVU179
+ 543 0000 014B     		ldr	r3, .L38
+ 544 0002 0022     		movs	r2, #0
+ 545              	.LVL69:
+ 546              		.loc 1 122 15 view .LVU180
+ 547 0004 1A70     		strb	r2, [r3]
+ 123:USER/CherryUSB/fsdev/hid_user.c **** }
+ 548              		.loc 1 123 1 view .LVU181
+ 549 0006 7047     		bx	lr
+ 550              	.L39:
+ 551              		.align	2
+ 552              	.L38:
+ 553 0008 00000000 		.word	hid_state
+ 554              		.cfi_endproc
+ 555              	.LFE59:
+ 557              		.section	.text.usbd_hid_out_callback,"ax",%progbits
+ 558              		.align	1
+ 559              		.global	usbd_hid_out_callback
+ 560              		.syntax unified
+ 561              		.thumb
+ 562              		.thumb_func
+ 564              	usbd_hid_out_callback:
+ 565              	.LVL70:
+ 566              	.LFB60:
+ 124:USER/CherryUSB/fsdev/hid_user.c **** 
+ 125:USER/CherryUSB/fsdev/hid_user.c **** static struct usbd_endpoint hid_in_ep1 = {
+ 126:USER/CherryUSB/fsdev/hid_user.c ****     .ep_cb = usbd_hid_int_callback,
+ 127:USER/CherryUSB/fsdev/hid_user.c ****     .ep_addr = 0x81
+ 128:USER/CherryUSB/fsdev/hid_user.c **** };
+ 129:USER/CherryUSB/fsdev/hid_user.c **** static struct usbd_endpoint hid_in_ep2 = {
+ 130:USER/CherryUSB/fsdev/hid_user.c ****     .ep_cb = usbd_hid_int_callback,
+ 131:USER/CherryUSB/fsdev/hid_user.c ****     .ep_addr = 0x82
+ 132:USER/CherryUSB/fsdev/hid_user.c **** };
+ 133:USER/CherryUSB/fsdev/hid_user.c **** static struct usbd_endpoint hid_in_ep3 = {
+ 134:USER/CherryUSB/fsdev/hid_user.c ****     .ep_cb = usbd_hid_int_callback,
+ 135:USER/CherryUSB/fsdev/hid_user.c ****     .ep_addr = 0x83
+ 136:USER/CherryUSB/fsdev/hid_user.c **** };
+ 137:USER/CherryUSB/fsdev/hid_user.c **** static struct usbd_endpoint hid_in_ep4 = {
+ 138:USER/CherryUSB/fsdev/hid_user.c ****     .ep_cb = usbd_hid_int_callback,
+ 139:USER/CherryUSB/fsdev/hid_user.c ****     .ep_addr = 0x84
+ 140:USER/CherryUSB/fsdev/hid_user.c **** };
+ 141:USER/CherryUSB/fsdev/hid_user.c **** static struct usbd_endpoint hid_in_ep5 = {
+ 142:USER/CherryUSB/fsdev/hid_user.c ****     .ep_cb = usbd_hid_int_callback,
+ 143:USER/CherryUSB/fsdev/hid_user.c ****     .ep_addr = 0x85
+ 144:USER/CherryUSB/fsdev/hid_user.c **** };
+ 145:USER/CherryUSB/fsdev/hid_user.c **** static struct usbd_endpoint hid_in_ep6 = {
+ 146:USER/CherryUSB/fsdev/hid_user.c ****     .ep_cb = usbd_hid_int_callback,
+ 147:USER/CherryUSB/fsdev/hid_user.c ****     .ep_addr = 0x86
+ 148:USER/CherryUSB/fsdev/hid_user.c **** };
+ 149:USER/CherryUSB/fsdev/hid_user.c **** static struct usbd_endpoint hid_in_ep7 = {
+ 150:USER/CherryUSB/fsdev/hid_user.c ****     .ep_cb = usbd_hid_int_callback,
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 17
+
+
+ 151:USER/CherryUSB/fsdev/hid_user.c ****     .ep_addr = 0x87
+ 152:USER/CherryUSB/fsdev/hid_user.c **** };
+ 153:USER/CherryUSB/fsdev/hid_user.c **** 
+ 154:USER/CherryUSB/fsdev/hid_user.c **** void usbd_hid_out_callback(uint8_t busid, uint8_t ep, uint32_t nbytes)
+ 155:USER/CherryUSB/fsdev/hid_user.c **** {
+ 567              		.loc 1 155 1 is_stmt 1 view -0
+ 568              		.cfi_startproc
+ 569              		@ args = 0, pretend = 0, frame = 0
+ 570              		@ frame_needed = 0, uses_anonymous_args = 0
+ 571              		.loc 1 155 1 is_stmt 0 view .LVU183
+ 572 0000 08B5     		push	{r3, lr}
+ 573              	.LCFI3:
+ 574              		.cfi_def_cfa_offset 8
+ 575              		.cfi_offset 3, -8
+ 576              		.cfi_offset 14, -4
+ 156:USER/CherryUSB/fsdev/hid_user.c ****     hid_state = HID_STATE_IDLE;
+ 577              		.loc 1 156 5 is_stmt 1 view .LVU184
+ 578              		.loc 1 156 15 is_stmt 0 view .LVU185
+ 579 0002 074B     		ldr	r3, .L44
+ 580 0004 0022     		movs	r2, #0
+ 581              	.LVL71:
+ 582              		.loc 1 156 15 view .LVU186
+ 583 0006 1A70     		strb	r2, [r3]
+ 157:USER/CherryUSB/fsdev/hid_user.c ****     switch (ep)
+ 584              		.loc 1 157 5 is_stmt 1 view .LVU187
+ 585 0008 0229     		cmp	r1, #2
+ 586 000a 00D0     		beq	.L43
+ 587              	.LVL72:
+ 588              	.L40:
+ 158:USER/CherryUSB/fsdev/hid_user.c ****     {
+ 159:USER/CherryUSB/fsdev/hid_user.c ****     case 0x02: 
+ 160:USER/CherryUSB/fsdev/hid_user.c ****         /* code */
+ 161:USER/CherryUSB/fsdev/hid_user.c ****         usbd_ep_start_read(busid, ep, (uint8_t*)read_buffer, HID_MAX_MPS);
+ 162:USER/CherryUSB/fsdev/hid_user.c ****         out_flag = 1;
+ 163:USER/CherryUSB/fsdev/hid_user.c ****         break;
+ 164:USER/CherryUSB/fsdev/hid_user.c ****     default:
+ 165:USER/CherryUSB/fsdev/hid_user.c ****         break;
+ 166:USER/CherryUSB/fsdev/hid_user.c ****     }
+ 167:USER/CherryUSB/fsdev/hid_user.c **** }
+ 589              		.loc 1 167 1 is_stmt 0 view .LVU188
+ 590 000c 08BD     		pop	{r3, pc}
+ 591              	.LVL73:
+ 592              	.L43:
+ 161:USER/CherryUSB/fsdev/hid_user.c ****         out_flag = 1;
+ 593              		.loc 1 161 9 is_stmt 1 view .LVU189
+ 594 000e 4023     		movs	r3, #64
+ 595 0010 044A     		ldr	r2, .L44+4
+ 596 0012 FFF7FEFF 		bl	usbd_ep_start_read
+ 597              	.LVL74:
+ 162:USER/CherryUSB/fsdev/hid_user.c ****         break;
+ 598              		.loc 1 162 9 view .LVU190
+ 162:USER/CherryUSB/fsdev/hid_user.c ****         break;
+ 599              		.loc 1 162 18 is_stmt 0 view .LVU191
+ 600 0016 044B     		ldr	r3, .L44+8
+ 601 0018 0122     		movs	r2, #1
+ 602 001a 1A70     		strb	r2, [r3]
+ 163:USER/CherryUSB/fsdev/hid_user.c ****     default:
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 18
+
+
+ 603              		.loc 1 163 9 is_stmt 1 view .LVU192
+ 604              		.loc 1 167 1 is_stmt 0 view .LVU193
+ 605 001c F6E7     		b	.L40
+ 606              	.L45:
+ 607 001e 00BF     		.align	2
+ 608              	.L44:
+ 609 0020 00000000 		.word	hid_state
+ 610 0024 00000000 		.word	read_buffer
+ 611 0028 00000000 		.word	out_flag
+ 612              		.cfi_endproc
+ 613              	.LFE60:
+ 615              		.section	.text.usbd_event_handler,"ax",%progbits
+ 616              		.align	1
+ 617              		.syntax unified
+ 618              		.thumb
+ 619              		.thumb_func
+ 621              	usbd_event_handler:
+ 622              	.LVL75:
+ 623              	.LFB58:
+  93:USER/CherryUSB/fsdev/hid_user.c ****     switch (event) {
+ 624              		.loc 1 93 1 is_stmt 1 view -0
+ 625              		.cfi_startproc
+ 626              		@ args = 0, pretend = 0, frame = 0
+ 627              		@ frame_needed = 0, uses_anonymous_args = 0
+  94:USER/CherryUSB/fsdev/hid_user.c ****         case USBD_EVENT_RESET:
+ 628              		.loc 1 94 5 view .LVU195
+ 629 0000 0729     		cmp	r1, #7
+ 630 0002 00D0     		beq	.L52
+ 631 0004 7047     		bx	lr
+ 632              	.L52:
+  93:USER/CherryUSB/fsdev/hid_user.c ****     switch (event) {
+ 633              		.loc 1 93 1 is_stmt 0 view .LVU196
+ 634 0006 08B5     		push	{r3, lr}
+ 635              	.LCFI4:
+ 636              		.cfi_def_cfa_offset 8
+ 637              		.cfi_offset 3, -8
+ 638              		.cfi_offset 14, -4
+ 106:USER/CherryUSB/fsdev/hid_user.c ****             hid_state = HID_STATE_IDLE;
+ 639              		.loc 1 106 9 is_stmt 1 view .LVU197
+ 640 0008 4023     		movs	r3, #64
+ 641 000a 054A     		ldr	r2, .L53
+ 642 000c 0221     		movs	r1, #2
+ 643              	.LVL76:
+ 106:USER/CherryUSB/fsdev/hid_user.c ****             hid_state = HID_STATE_IDLE;
+ 644              		.loc 1 106 9 is_stmt 0 view .LVU198
+ 645 000e FFF7FEFF 		bl	usbd_ep_start_read
+ 646              	.LVL77:
+ 107:USER/CherryUSB/fsdev/hid_user.c ****             out_flag = 1;
+ 647              		.loc 1 107 13 is_stmt 1 view .LVU199
+ 107:USER/CherryUSB/fsdev/hid_user.c ****             out_flag = 1;
+ 648              		.loc 1 107 23 is_stmt 0 view .LVU200
+ 649 0012 044B     		ldr	r3, .L53+4
+ 650 0014 0022     		movs	r2, #0
+ 651 0016 1A70     		strb	r2, [r3]
+ 108:USER/CherryUSB/fsdev/hid_user.c ****             break;
+ 652              		.loc 1 108 13 is_stmt 1 view .LVU201
+ 108:USER/CherryUSB/fsdev/hid_user.c ****             break;
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 19
+
+
+ 653              		.loc 1 108 22 is_stmt 0 view .LVU202
+ 654 0018 034B     		ldr	r3, .L53+8
+ 655 001a 0122     		movs	r2, #1
+ 656 001c 1A70     		strb	r2, [r3]
+ 109:USER/CherryUSB/fsdev/hid_user.c ****         case USBD_EVENT_SET_REMOTE_WAKEUP:
+ 657              		.loc 1 109 13 is_stmt 1 view .LVU203
+ 118:USER/CherryUSB/fsdev/hid_user.c **** 
+ 658              		.loc 1 118 1 is_stmt 0 view .LVU204
+ 659 001e 08BD     		pop	{r3, pc}
+ 660              	.L54:
+ 661              		.align	2
+ 662              	.L53:
+ 663 0020 00000000 		.word	read_buffer
+ 664 0024 00000000 		.word	hid_state
+ 665 0028 00000000 		.word	out_flag
+ 666              		.cfi_endproc
+ 667              	.LFE58:
+ 669              		.section	.text.hid_keyboard_init,"ax",%progbits
+ 670              		.align	1
+ 671              		.global	hid_keyboard_init
+ 672              		.syntax unified
+ 673              		.thumb
+ 674              		.thumb_func
+ 676              	hid_keyboard_init:
+ 677              	.LVL78:
+ 678              	.LFB61:
+ 168:USER/CherryUSB/fsdev/hid_user.c **** 
+ 169:USER/CherryUSB/fsdev/hid_user.c **** static struct usbd_endpoint hid_out_ep1 = {
+ 170:USER/CherryUSB/fsdev/hid_user.c ****     .ep_cb = usbd_hid_out_callback,
+ 171:USER/CherryUSB/fsdev/hid_user.c ****     .ep_addr = 0x01
+ 172:USER/CherryUSB/fsdev/hid_user.c **** };
+ 173:USER/CherryUSB/fsdev/hid_user.c **** static struct usbd_endpoint hid_out_ep2 = {
+ 174:USER/CherryUSB/fsdev/hid_user.c ****     .ep_cb = usbd_hid_out_callback,
+ 175:USER/CherryUSB/fsdev/hid_user.c ****     .ep_addr = 0x02
+ 176:USER/CherryUSB/fsdev/hid_user.c **** };
+ 177:USER/CherryUSB/fsdev/hid_user.c **** static struct usbd_endpoint hid_out_ep3 = {
+ 178:USER/CherryUSB/fsdev/hid_user.c ****     .ep_cb = usbd_hid_out_callback,
+ 179:USER/CherryUSB/fsdev/hid_user.c ****     .ep_addr = 0x03
+ 180:USER/CherryUSB/fsdev/hid_user.c **** };
+ 181:USER/CherryUSB/fsdev/hid_user.c **** static struct usbd_endpoint hid_out_ep4 = {
+ 182:USER/CherryUSB/fsdev/hid_user.c ****     .ep_cb = usbd_hid_out_callback,
+ 183:USER/CherryUSB/fsdev/hid_user.c ****     .ep_addr = 0x04
+ 184:USER/CherryUSB/fsdev/hid_user.c **** };
+ 185:USER/CherryUSB/fsdev/hid_user.c **** static struct usbd_endpoint hid_out_ep5 = {
+ 186:USER/CherryUSB/fsdev/hid_user.c ****     .ep_cb = usbd_hid_out_callback,
+ 187:USER/CherryUSB/fsdev/hid_user.c ****     .ep_addr = 0x05
+ 188:USER/CherryUSB/fsdev/hid_user.c **** };
+ 189:USER/CherryUSB/fsdev/hid_user.c **** static struct usbd_endpoint hid_out_ep6 = {
+ 190:USER/CherryUSB/fsdev/hid_user.c ****     .ep_cb = usbd_hid_out_callback,
+ 191:USER/CherryUSB/fsdev/hid_user.c ****     .ep_addr = 0x06
+ 192:USER/CherryUSB/fsdev/hid_user.c **** };
+ 193:USER/CherryUSB/fsdev/hid_user.c **** static struct usbd_endpoint hid_out_ep7 = {
+ 194:USER/CherryUSB/fsdev/hid_user.c ****     .ep_cb = usbd_hid_out_callback,
+ 195:USER/CherryUSB/fsdev/hid_user.c ****     .ep_addr = 0x07
+ 196:USER/CherryUSB/fsdev/hid_user.c **** };
+ 197:USER/CherryUSB/fsdev/hid_user.c **** 
+ 198:USER/CherryUSB/fsdev/hid_user.c **** struct usbd_interface intf0,intf1,intf2,intf3;
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 20
+
+
+ 199:USER/CherryUSB/fsdev/hid_user.c **** 
+ 200:USER/CherryUSB/fsdev/hid_user.c **** void hid_keyboard_init(uint8_t busid, uintptr_t reg_base)
+ 201:USER/CherryUSB/fsdev/hid_user.c **** {
+ 679              		.loc 1 201 1 is_stmt 1 view -0
+ 680              		.cfi_startproc
+ 681              		@ args = 0, pretend = 0, frame = 0
+ 682              		@ frame_needed = 0, uses_anonymous_args = 0
+ 683              		.loc 1 201 1 is_stmt 0 view .LVU206
+ 684 0000 38B5     		push	{r3, r4, r5, lr}
+ 685              	.LCFI5:
+ 686              		.cfi_def_cfa_offset 16
+ 687              		.cfi_offset 3, -16
+ 688              		.cfi_offset 4, -12
+ 689              		.cfi_offset 5, -8
+ 690              		.cfi_offset 14, -4
+ 691 0002 0446     		mov	r4, r0
+ 692 0004 0D46     		mov	r5, r1
+ 202:USER/CherryUSB/fsdev/hid_user.c ****     usbd_desc_register(busid, &hid_descriptor);
+ 693              		.loc 1 202 5 is_stmt 1 view .LVU207
+ 694 0006 2049     		ldr	r1, .L57
+ 695              	.LVL79:
+ 696              		.loc 1 202 5 is_stmt 0 view .LVU208
+ 697 0008 FFF7FEFF 		bl	usbd_desc_register
+ 698              	.LVL80:
+ 203:USER/CherryUSB/fsdev/hid_user.c **** 
+ 204:USER/CherryUSB/fsdev/hid_user.c ****     usbd_add_endpoint(busid, &hid_in_ep1);
+ 699              		.loc 1 204 5 is_stmt 1 view .LVU209
+ 700 000c 1F49     		ldr	r1, .L57+4
+ 701 000e 2046     		mov	r0, r4
+ 702 0010 FFF7FEFF 		bl	usbd_add_endpoint
+ 703              	.LVL81:
+ 205:USER/CherryUSB/fsdev/hid_user.c ****     usbd_add_endpoint(busid, &hid_in_ep2);
+ 704              		.loc 1 205 5 view .LVU210
+ 705 0014 1E49     		ldr	r1, .L57+8
+ 706 0016 2046     		mov	r0, r4
+ 707 0018 FFF7FEFF 		bl	usbd_add_endpoint
+ 708              	.LVL82:
+ 206:USER/CherryUSB/fsdev/hid_user.c ****     usbd_add_endpoint(busid, &hid_in_ep3);
+ 709              		.loc 1 206 5 view .LVU211
+ 710 001c 1D49     		ldr	r1, .L57+12
+ 711 001e 2046     		mov	r0, r4
+ 712 0020 FFF7FEFF 		bl	usbd_add_endpoint
+ 713              	.LVL83:
+ 207:USER/CherryUSB/fsdev/hid_user.c ****     usbd_add_endpoint(busid, &hid_in_ep4);
+ 714              		.loc 1 207 5 view .LVU212
+ 715 0024 1C49     		ldr	r1, .L57+16
+ 716 0026 2046     		mov	r0, r4
+ 717 0028 FFF7FEFF 		bl	usbd_add_endpoint
+ 718              	.LVL84:
+ 208:USER/CherryUSB/fsdev/hid_user.c ****     usbd_add_endpoint(busid, &hid_in_ep5);
+ 719              		.loc 1 208 5 view .LVU213
+ 720 002c 1B49     		ldr	r1, .L57+20
+ 721 002e 2046     		mov	r0, r4
+ 722 0030 FFF7FEFF 		bl	usbd_add_endpoint
+ 723              	.LVL85:
+ 209:USER/CherryUSB/fsdev/hid_user.c ****     usbd_add_endpoint(busid, &hid_in_ep6);
+ 724              		.loc 1 209 5 view .LVU214
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 21
+
+
+ 725 0034 1A49     		ldr	r1, .L57+24
+ 726 0036 2046     		mov	r0, r4
+ 727 0038 FFF7FEFF 		bl	usbd_add_endpoint
+ 728              	.LVL86:
+ 210:USER/CherryUSB/fsdev/hid_user.c ****     usbd_add_endpoint(busid, &hid_in_ep7);
+ 729              		.loc 1 210 5 view .LVU215
+ 730 003c 1949     		ldr	r1, .L57+28
+ 731 003e 2046     		mov	r0, r4
+ 732 0040 FFF7FEFF 		bl	usbd_add_endpoint
+ 733              	.LVL87:
+ 211:USER/CherryUSB/fsdev/hid_user.c **** 
+ 212:USER/CherryUSB/fsdev/hid_user.c ****     usbd_add_endpoint(busid, &hid_out_ep1);
+ 734              		.loc 1 212 5 view .LVU216
+ 735 0044 1849     		ldr	r1, .L57+32
+ 736 0046 2046     		mov	r0, r4
+ 737 0048 FFF7FEFF 		bl	usbd_add_endpoint
+ 738              	.LVL88:
+ 213:USER/CherryUSB/fsdev/hid_user.c ****     usbd_add_endpoint(busid, &hid_out_ep2);
+ 739              		.loc 1 213 5 view .LVU217
+ 740 004c 1749     		ldr	r1, .L57+36
+ 741 004e 2046     		mov	r0, r4
+ 742 0050 FFF7FEFF 		bl	usbd_add_endpoint
+ 743              	.LVL89:
+ 214:USER/CherryUSB/fsdev/hid_user.c ****     usbd_add_endpoint(busid, &hid_out_ep3);
+ 744              		.loc 1 214 5 view .LVU218
+ 745 0054 1649     		ldr	r1, .L57+40
+ 746 0056 2046     		mov	r0, r4
+ 747 0058 FFF7FEFF 		bl	usbd_add_endpoint
+ 748              	.LVL90:
+ 215:USER/CherryUSB/fsdev/hid_user.c ****     usbd_add_endpoint(busid, &hid_out_ep4);
+ 749              		.loc 1 215 5 view .LVU219
+ 750 005c 1549     		ldr	r1, .L57+44
+ 751 005e 2046     		mov	r0, r4
+ 752 0060 FFF7FEFF 		bl	usbd_add_endpoint
+ 753              	.LVL91:
+ 216:USER/CherryUSB/fsdev/hid_user.c ****     usbd_add_endpoint(busid, &hid_out_ep5);
+ 754              		.loc 1 216 5 view .LVU220
+ 755 0064 1449     		ldr	r1, .L57+48
+ 756 0066 2046     		mov	r0, r4
+ 757 0068 FFF7FEFF 		bl	usbd_add_endpoint
+ 758              	.LVL92:
+ 217:USER/CherryUSB/fsdev/hid_user.c ****     usbd_add_endpoint(busid, &hid_out_ep6);
+ 759              		.loc 1 217 5 view .LVU221
+ 760 006c 1349     		ldr	r1, .L57+52
+ 761 006e 2046     		mov	r0, r4
+ 762 0070 FFF7FEFF 		bl	usbd_add_endpoint
+ 763              	.LVL93:
+ 218:USER/CherryUSB/fsdev/hid_user.c ****     usbd_add_endpoint(busid, &hid_out_ep7);
+ 764              		.loc 1 218 5 view .LVU222
+ 765 0074 1249     		ldr	r1, .L57+56
+ 766 0076 2046     		mov	r0, r4
+ 767 0078 FFF7FEFF 		bl	usbd_add_endpoint
+ 768              	.LVL94:
+ 219:USER/CherryUSB/fsdev/hid_user.c ****     
+ 220:USER/CherryUSB/fsdev/hid_user.c ****     
+ 221:USER/CherryUSB/fsdev/hid_user.c ****     usbd_initialize(busid, reg_base, usbd_event_handler);
+ 769              		.loc 1 221 5 view .LVU223
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 22
+
+
+ 770 007c 114A     		ldr	r2, .L57+60
+ 771 007e 2946     		mov	r1, r5
+ 772 0080 2046     		mov	r0, r4
+ 773 0082 FFF7FEFF 		bl	usbd_initialize
+ 774              	.LVL95:
+ 222:USER/CherryUSB/fsdev/hid_user.c **** }
+ 775              		.loc 1 222 1 is_stmt 0 view .LVU224
+ 776 0086 38BD     		pop	{r3, r4, r5, pc}
+ 777              	.LVL96:
+ 778              	.L58:
+ 779              		.loc 1 222 1 view .LVU225
+ 780              		.align	2
+ 781              	.L57:
+ 782 0088 00000000 		.word	hid_descriptor
+ 783 008c 00000000 		.word	hid_in_ep1
+ 784 0090 00000000 		.word	hid_in_ep2
+ 785 0094 00000000 		.word	hid_in_ep3
+ 786 0098 00000000 		.word	hid_in_ep4
+ 787 009c 00000000 		.word	hid_in_ep5
+ 788 00a0 00000000 		.word	hid_in_ep6
+ 789 00a4 00000000 		.word	hid_in_ep7
+ 790 00a8 00000000 		.word	hid_out_ep1
+ 791 00ac 00000000 		.word	hid_out_ep2
+ 792 00b0 00000000 		.word	hid_out_ep3
+ 793 00b4 00000000 		.word	hid_out_ep4
+ 794 00b8 00000000 		.word	hid_out_ep5
+ 795 00bc 00000000 		.word	hid_out_ep6
+ 796 00c0 00000000 		.word	hid_out_ep7
+ 797 00c4 00000000 		.word	usbd_event_handler
+ 798              		.cfi_endproc
+ 799              	.LFE61:
+ 801              		.section	.text.hid_keyboard_test,"ax",%progbits
+ 802              		.align	1
+ 803              		.global	hid_keyboard_test
+ 804              		.syntax unified
+ 805              		.thumb
+ 806              		.thumb_func
+ 808              	hid_keyboard_test:
+ 809              	.LVL97:
+ 810              	.LFB62:
+ 223:USER/CherryUSB/fsdev/hid_user.c **** 
+ 224:USER/CherryUSB/fsdev/hid_user.c **** USB_NOCACHE_RAM_SECTION USB_MEM_ALIGNX uint8_t write_buffer[64];
+ 225:USER/CherryUSB/fsdev/hid_user.c **** 
+ 226:USER/CherryUSB/fsdev/hid_user.c **** void hid_keyboard_test(uint8_t busid)
+ 227:USER/CherryUSB/fsdev/hid_user.c **** {
+ 811              		.loc 1 227 1 is_stmt 1 view -0
+ 812              		.cfi_startproc
+ 813              		@ args = 0, pretend = 0, frame = 8
+ 814              		@ frame_needed = 0, uses_anonymous_args = 0
+ 815              		.loc 1 227 1 is_stmt 0 view .LVU227
+ 816 0000 30B5     		push	{r4, r5, lr}
+ 817              	.LCFI6:
+ 818              		.cfi_def_cfa_offset 12
+ 819              		.cfi_offset 4, -12
+ 820              		.cfi_offset 5, -8
+ 821              		.cfi_offset 14, -4
+ 822 0002 83B0     		sub	sp, sp, #12
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 23
+
+
+ 823              	.LCFI7:
+ 824              		.cfi_def_cfa_offset 24
+ 825 0004 0446     		mov	r4, r0
+ 228:USER/CherryUSB/fsdev/hid_user.c ****     const uint8_t sendbuffer[8] = { 0x00, 0x00, HID_KBD_USAGE_A, 0x00, 0x00, 0x00, 0x00, 0x00 };
+ 826              		.loc 1 228 5 is_stmt 1 view .LVU228
+ 827              		.loc 1 228 19 is_stmt 0 view .LVU229
+ 828 0006 4FF48023 		mov	r3, #262144
+ 829 000a 0093     		str	r3, [sp]
+ 830 000c 0023     		movs	r3, #0
+ 831 000e 0193     		str	r3, [sp, #4]
+ 229:USER/CherryUSB/fsdev/hid_user.c **** 
+ 230:USER/CherryUSB/fsdev/hid_user.c ****     if(usb_device_is_configured(busid) == false) {
+ 832              		.loc 1 230 5 is_stmt 1 view .LVU230
+ 833              		.loc 1 230 8 is_stmt 0 view .LVU231
+ 834 0010 FFF7FEFF 		bl	usb_device_is_configured
+ 835              	.LVL98:
+ 836              		.loc 1 230 7 discriminator 1 view .LVU232
+ 837 0014 08B9     		cbnz	r0, .L64
+ 838              	.L59:
+ 231:USER/CherryUSB/fsdev/hid_user.c ****         return;
+ 232:USER/CherryUSB/fsdev/hid_user.c ****     }
+ 233:USER/CherryUSB/fsdev/hid_user.c **** 
+ 234:USER/CherryUSB/fsdev/hid_user.c ****     memcpy(write_buffer, sendbuffer, 8);
+ 235:USER/CherryUSB/fsdev/hid_user.c ****     hid_state = HID_STATE_BUSY;
+ 236:USER/CherryUSB/fsdev/hid_user.c ****     usbd_ep_start_write(busid, HID_INT_EP, write_buffer, 8);
+ 237:USER/CherryUSB/fsdev/hid_user.c ****     while (hid_state == HID_STATE_BUSY) {
+ 238:USER/CherryUSB/fsdev/hid_user.c ****     }
+ 239:USER/CherryUSB/fsdev/hid_user.c **** }
+ 839              		.loc 1 239 1 view .LVU233
+ 840 0016 03B0     		add	sp, sp, #12
+ 841              	.LCFI8:
+ 842              		.cfi_remember_state
+ 843              		.cfi_def_cfa_offset 12
+ 844              		@ sp needed
+ 845 0018 30BD     		pop	{r4, r5, pc}
+ 846              	.LVL99:
+ 847              	.L64:
+ 848              	.LCFI9:
+ 849              		.cfi_restore_state
+ 234:USER/CherryUSB/fsdev/hid_user.c ****     hid_state = HID_STATE_BUSY;
+ 850              		.loc 1 234 5 is_stmt 1 view .LVU234
+ 851 001a 0A4D     		ldr	r5, .L65
+ 852 001c 0822     		movs	r2, #8
+ 853 001e 6946     		mov	r1, sp
+ 854 0020 2846     		mov	r0, r5
+ 855 0022 FFF7FEFF 		bl	usb_memcpy
+ 856              	.LVL100:
+ 235:USER/CherryUSB/fsdev/hid_user.c ****     usbd_ep_start_write(busid, HID_INT_EP, write_buffer, 8);
+ 857              		.loc 1 235 5 view .LVU235
+ 235:USER/CherryUSB/fsdev/hid_user.c ****     usbd_ep_start_write(busid, HID_INT_EP, write_buffer, 8);
+ 858              		.loc 1 235 15 is_stmt 0 view .LVU236
+ 859 0026 084B     		ldr	r3, .L65+4
+ 860 0028 0122     		movs	r2, #1
+ 861 002a 1A70     		strb	r2, [r3]
+ 236:USER/CherryUSB/fsdev/hid_user.c ****     while (hid_state == HID_STATE_BUSY) {
+ 862              		.loc 1 236 5 is_stmt 1 view .LVU237
+ 863 002c 0823     		movs	r3, #8
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 24
+
+
+ 864 002e 2A46     		mov	r2, r5
+ 865 0030 8121     		movs	r1, #129
+ 866 0032 2046     		mov	r0, r4
+ 867 0034 FFF7FEFF 		bl	usbd_ep_start_write
+ 868              	.LVL101:
+ 237:USER/CherryUSB/fsdev/hid_user.c ****     }
+ 869              		.loc 1 237 5 view .LVU238
+ 870              	.L62:
+ 238:USER/CherryUSB/fsdev/hid_user.c **** }
+ 871              		.loc 1 238 5 view .LVU239
+ 237:USER/CherryUSB/fsdev/hid_user.c ****     }
+ 872              		.loc 1 237 22 discriminator 1 view .LVU240
+ 873 0038 034B     		ldr	r3, .L65+4
+ 874 003a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 875 003c DBB2     		uxtb	r3, r3
+ 876 003e 012B     		cmp	r3, #1
+ 877 0040 FAD0     		beq	.L62
+ 878 0042 E8E7     		b	.L59
+ 879              	.L66:
+ 880              		.align	2
+ 881              	.L65:
+ 882 0044 00000000 		.word	write_buffer
+ 883 0048 00000000 		.word	hid_state
+ 884              		.cfi_endproc
+ 885              	.LFE62:
+ 887              		.section	.text.hid_write_ep,"ax",%progbits
+ 888              		.align	1
+ 889              		.global	hid_write_ep
+ 890              		.syntax unified
+ 891              		.thumb
+ 892              		.thumb_func
+ 894              	hid_write_ep:
+ 895              	.LVL102:
+ 896              	.LFB63:
+ 240:USER/CherryUSB/fsdev/hid_user.c **** 
+ 241:USER/CherryUSB/fsdev/hid_user.c **** void hid_write_ep(uint8_t busid,uint8_t* data,uint16_t len,uint8_t ep)
+ 242:USER/CherryUSB/fsdev/hid_user.c **** {
+ 897              		.loc 1 242 1 view -0
+ 898              		.cfi_startproc
+ 899              		@ args = 0, pretend = 0, frame = 0
+ 900              		@ frame_needed = 0, uses_anonymous_args = 0
+ 901              		.loc 1 242 1 is_stmt 0 view .LVU242
+ 902 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 903              	.LCFI10:
+ 904              		.cfi_def_cfa_offset 24
+ 905              		.cfi_offset 4, -24
+ 906              		.cfi_offset 5, -20
+ 907              		.cfi_offset 6, -16
+ 908              		.cfi_offset 7, -12
+ 909              		.cfi_offset 8, -8
+ 910              		.cfi_offset 14, -4
+ 911 0004 0746     		mov	r7, r0
+ 912 0006 0E46     		mov	r6, r1
+ 913 0008 1546     		mov	r5, r2
+ 914 000a 9846     		mov	r8, r3
+ 243:USER/CherryUSB/fsdev/hid_user.c ****     if(usb_device_is_configured(busid) == false) {
+ 915              		.loc 1 243 5 is_stmt 1 view .LVU243
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 25
+
+
+ 916              		.loc 1 243 8 is_stmt 0 view .LVU244
+ 917 000c FFF7FEFF 		bl	usb_device_is_configured
+ 918              	.LVL103:
+ 919              		.loc 1 243 7 discriminator 1 view .LVU245
+ 920 0010 C8B1     		cbz	r0, .L67
+ 921              	.LBB22:
+ 244:USER/CherryUSB/fsdev/hid_user.c ****         return;
+ 245:USER/CherryUSB/fsdev/hid_user.c ****     }
+ 246:USER/CherryUSB/fsdev/hid_user.c **** 
+ 247:USER/CherryUSB/fsdev/hid_user.c ****     //memcpy(write_buffer, data, len);
+ 248:USER/CherryUSB/fsdev/hid_user.c ****     for(int a = 0;a < len;a++)
+ 922              		.loc 1 248 13 view .LVU246
+ 923 0012 4FF0000C 		mov	ip, #0
+ 924 0016 06E0     		b	.L68
+ 925              	.LVL104:
+ 926              	.L70:
+ 249:USER/CherryUSB/fsdev/hid_user.c ****     {
+ 250:USER/CherryUSB/fsdev/hid_user.c ****         write_buffer[a] = data[a];
+ 927              		.loc 1 250 9 is_stmt 1 view .LVU247
+ 928              		.loc 1 250 31 is_stmt 0 view .LVU248
+ 929 0018 16F80CE0 		ldrb	lr, [r6, ip]	@ zero_extendqisi2
+ 930              		.loc 1 250 25 view .LVU249
+ 931 001c 0B4C     		ldr	r4, .L74
+ 932 001e 04F80CE0 		strb	lr, [r4, ip]
+ 248:USER/CherryUSB/fsdev/hid_user.c ****     {
+ 933              		.loc 1 248 28 is_stmt 1 discriminator 3 view .LVU250
+ 934 0022 0CF1010C 		add	ip, ip, #1
+ 935              	.LVL105:
+ 936              	.L68:
+ 248:USER/CherryUSB/fsdev/hid_user.c ****     {
+ 937              		.loc 1 248 21 discriminator 1 view .LVU251
+ 938 0026 6545     		cmp	r5, ip
+ 939 0028 F6DC     		bgt	.L70
+ 940              	.LBE22:
+ 251:USER/CherryUSB/fsdev/hid_user.c ****     }
+ 252:USER/CherryUSB/fsdev/hid_user.c ****     hid_state = HID_STATE_BUSY;
+ 941              		.loc 1 252 5 view .LVU252
+ 942              		.loc 1 252 15 is_stmt 0 view .LVU253
+ 943 002a 094B     		ldr	r3, .L74+4
+ 944 002c 0122     		movs	r2, #1
+ 945 002e 1A70     		strb	r2, [r3]
+ 253:USER/CherryUSB/fsdev/hid_user.c ****     usbd_ep_start_write(busid, ep, write_buffer, (uint32_t)len);
+ 946              		.loc 1 253 5 is_stmt 1 view .LVU254
+ 947 0030 2B46     		mov	r3, r5
+ 948 0032 064A     		ldr	r2, .L74
+ 949 0034 4146     		mov	r1, r8
+ 950 0036 3846     		mov	r0, r7
+ 951 0038 FFF7FEFF 		bl	usbd_ep_start_write
+ 952              	.LVL106:
+ 254:USER/CherryUSB/fsdev/hid_user.c ****     while (hid_state == HID_STATE_BUSY) {
+ 953              		.loc 1 254 5 view .LVU255
+ 954              	.L71:
+ 255:USER/CherryUSB/fsdev/hid_user.c ****     }
+ 955              		.loc 1 255 5 view .LVU256
+ 254:USER/CherryUSB/fsdev/hid_user.c ****     while (hid_state == HID_STATE_BUSY) {
+ 956              		.loc 1 254 22 discriminator 1 view .LVU257
+ 957 003c 044B     		ldr	r3, .L74+4
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 26
+
+
+ 958 003e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 959 0040 DBB2     		uxtb	r3, r3
+ 960 0042 012B     		cmp	r3, #1
+ 961 0044 FAD0     		beq	.L71
+ 962              	.LVL107:
+ 963              	.L67:
+ 256:USER/CherryUSB/fsdev/hid_user.c **** }
+ 964              		.loc 1 256 1 is_stmt 0 view .LVU258
+ 965 0046 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 966              	.LVL108:
+ 967              	.L75:
+ 968              		.loc 1 256 1 view .LVU259
+ 969 004a 00BF     		.align	2
+ 970              	.L74:
+ 971 004c 00000000 		.word	write_buffer
+ 972 0050 00000000 		.word	hid_state
+ 973              		.cfi_endproc
+ 974              	.LFE63:
+ 976              		.global	write_buffer
+ 977              		.section	.noncacheable,"aw"
+ 978              		.align	2
+ 981              	write_buffer:
+ 982 0000 00000000 		.space	64
+ 982      00000000 
+ 982      00000000 
+ 982      00000000 
+ 982      00000000 
+ 983              		.global	intf3
+ 984              		.section	.bss.intf3,"aw",%nobits
+ 985              		.align	2
+ 988              	intf3:
+ 989 0000 00000000 		.space	28
+ 989      00000000 
+ 989      00000000 
+ 989      00000000 
+ 989      00000000 
+ 990              		.global	intf2
+ 991              		.section	.bss.intf2,"aw",%nobits
+ 992              		.align	2
+ 995              	intf2:
+ 996 0000 00000000 		.space	28
+ 996      00000000 
+ 996      00000000 
+ 996      00000000 
+ 996      00000000 
+ 997              		.global	intf1
+ 998              		.section	.bss.intf1,"aw",%nobits
+ 999              		.align	2
+ 1002              	intf1:
+ 1003 0000 00000000 		.space	28
+ 1003      00000000 
+ 1003      00000000 
+ 1003      00000000 
+ 1003      00000000 
+ 1004              		.global	intf0
+ 1005              		.section	.bss.intf0,"aw",%nobits
+ 1006              		.align	2
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 27
+
+
+ 1009              	intf0:
+ 1010 0000 00000000 		.space	28
+ 1010      00000000 
+ 1010      00000000 
+ 1010      00000000 
+ 1010      00000000 
+ 1011              		.section	.data.hid_out_ep7,"aw"
+ 1012              		.align	2
+ 1015              	hid_out_ep7:
+ 1016 0000 07       		.byte	7
+ 1017 0001 000000   		.space	3
+ 1018 0004 00000000 		.word	usbd_hid_out_callback
+ 1019              		.section	.data.hid_out_ep6,"aw"
+ 1020              		.align	2
+ 1023              	hid_out_ep6:
+ 1024 0000 06       		.byte	6
+ 1025 0001 000000   		.space	3
+ 1026 0004 00000000 		.word	usbd_hid_out_callback
+ 1027              		.section	.data.hid_out_ep5,"aw"
+ 1028              		.align	2
+ 1031              	hid_out_ep5:
+ 1032 0000 05       		.byte	5
+ 1033 0001 000000   		.space	3
+ 1034 0004 00000000 		.word	usbd_hid_out_callback
+ 1035              		.section	.data.hid_out_ep4,"aw"
+ 1036              		.align	2
+ 1039              	hid_out_ep4:
+ 1040 0000 04       		.byte	4
+ 1041 0001 000000   		.space	3
+ 1042 0004 00000000 		.word	usbd_hid_out_callback
+ 1043              		.section	.data.hid_out_ep3,"aw"
+ 1044              		.align	2
+ 1047              	hid_out_ep3:
+ 1048 0000 03       		.byte	3
+ 1049 0001 000000   		.space	3
+ 1050 0004 00000000 		.word	usbd_hid_out_callback
+ 1051              		.section	.data.hid_out_ep2,"aw"
+ 1052              		.align	2
+ 1055              	hid_out_ep2:
+ 1056 0000 02       		.byte	2
+ 1057 0001 000000   		.space	3
+ 1058 0004 00000000 		.word	usbd_hid_out_callback
+ 1059              		.section	.data.hid_out_ep1,"aw"
+ 1060              		.align	2
+ 1063              	hid_out_ep1:
+ 1064 0000 01       		.byte	1
+ 1065 0001 000000   		.space	3
+ 1066 0004 00000000 		.word	usbd_hid_out_callback
+ 1067              		.section	.data.hid_in_ep7,"aw"
+ 1068              		.align	2
+ 1071              	hid_in_ep7:
+ 1072 0000 87       		.byte	-121
+ 1073 0001 000000   		.space	3
+ 1074 0004 00000000 		.word	usbd_hid_int_callback
+ 1075              		.section	.data.hid_in_ep6,"aw"
+ 1076              		.align	2
+ 1079              	hid_in_ep6:
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 28
+
+
+ 1080 0000 86       		.byte	-122
+ 1081 0001 000000   		.space	3
+ 1082 0004 00000000 		.word	usbd_hid_int_callback
+ 1083              		.section	.data.hid_in_ep5,"aw"
+ 1084              		.align	2
+ 1087              	hid_in_ep5:
+ 1088 0000 85       		.byte	-123
+ 1089 0001 000000   		.space	3
+ 1090 0004 00000000 		.word	usbd_hid_int_callback
+ 1091              		.section	.data.hid_in_ep4,"aw"
+ 1092              		.align	2
+ 1095              	hid_in_ep4:
+ 1096 0000 84       		.byte	-124
+ 1097 0001 000000   		.space	3
+ 1098 0004 00000000 		.word	usbd_hid_int_callback
+ 1099              		.section	.data.hid_in_ep3,"aw"
+ 1100              		.align	2
+ 1103              	hid_in_ep3:
+ 1104 0000 83       		.byte	-125
+ 1105 0001 000000   		.space	3
+ 1106 0004 00000000 		.word	usbd_hid_int_callback
+ 1107              		.section	.data.hid_in_ep2,"aw"
+ 1108              		.align	2
+ 1111              	hid_in_ep2:
+ 1112 0000 82       		.byte	-126
+ 1113 0001 000000   		.space	3
+ 1114 0004 00000000 		.word	usbd_hid_int_callback
+ 1115              		.section	.data.hid_in_ep1,"aw"
+ 1116              		.align	2
+ 1119              	hid_in_ep1:
+ 1120 0000 81       		.byte	-127
+ 1121 0001 000000   		.space	3
+ 1122 0004 00000000 		.word	usbd_hid_int_callback
+ 1123              		.section	.bss.hid_state,"aw",%nobits
+ 1126              	hid_state:
+ 1127 0000 00       		.space	1
+ 1128              		.global	out_flag
+ 1129              		.section	.bss.out_flag,"aw",%nobits
+ 1132              	out_flag:
+ 1133 0000 00       		.space	1
+ 1134              		.global	read_buffer
+ 1135              		.section	.bss.read_buffer,"aw",%nobits
+ 1136              		.align	2
+ 1139              	read_buffer:
+ 1140 0000 00000000 		.space	64
+ 1140      00000000 
+ 1140      00000000 
+ 1140      00000000 
+ 1140      00000000 
+ 1141              		.global	hid_descriptor
+ 1142              		.section	.rodata.hid_descriptor,"a"
+ 1143              		.align	2
+ 1146              	hid_descriptor:
+ 1147 0000 00000000 		.word	device_descriptor_callback
+ 1148 0004 00000000 		.word	config_descriptor_callback
+ 1149 0008 00000000 		.word	device_quality_descriptor_callback
+ 1150 000c 00000000 		.space	4
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 29
+
+
+ 1151 0010 00000000 		.word	string_descriptor_callback
+ 1152 0014 00000000 		.space	16
+ 1152      00000000 
+ 1152      00000000 
+ 1152      00000000 
+ 1153              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 1154              		.align	2
+ 1155              	.LC0:
+ 1156 0000 4261694A 		.ascii	"BaiJiang\000"
+ 1156      69616E67 
+ 1156      00
+ 1157 0009 000000   		.align	2
+ 1158              	.LC1:
+ 1159 000c 4261694A 		.ascii	"BaiJiang xbox\000"
+ 1159      69616E67 
+ 1159      2078626F 
+ 1159      7800
+ 1160 001a 0000     		.align	2
+ 1161              	.LC2:
+ 1162 001c 56312E30 		.ascii	"V1.0\000"
+ 1162      00
+ 1163              		.section	.rodata.string_descriptors,"a"
+ 1164              		.align	2
+ 1167              	string_descriptors:
+ 1168 0000 00000000 		.word	__compound_literal.0
+ 1169 0004 00000000 		.word	.LC0
+ 1170 0008 0C000000 		.word	.LC1
+ 1171 000c 1C000000 		.word	.LC2
+ 1172              		.section	.rodata.__compound_literal.0,"a"
+ 1173              		.align	2
+ 1176              	__compound_literal.0:
+ 1177 0000 09       		.byte	9
+ 1178 0001 04       		.byte	4
+ 1179              		.section	.rodata.device_quality_descriptor,"a"
+ 1180              		.align	2
+ 1183              	device_quality_descriptor:
+ 1184 0000 0A060002 		.ascii	"\012\006\000\002\000\000\000@\000\000"
+ 1184      00000040 
+ 1184      0000
+ 1185              		.section	.rodata.config_descriptor,"a"
+ 1186              		.align	2
+ 1189              	config_descriptor:
+ 1190 0000 09029900 		.ascii	"\011\002\231\000\004\001\000\200\372\011\004\000\000"
+ 1190      04010080 
+ 1190      FA090400 
+ 1190      00
+ 1191 000d 02FF5D01 		.ascii	"\002\377]\001\000\021!\020\001\001%\201\024\003\003"
+ 1191      00112110 
+ 1191      01012581 
+ 1191      140303
+ 1192 001c 03041302 		.ascii	"\003\004\023\002\010\003\003\007\005\201\003 \000\004"
+ 1192      08030307 
+ 1192      05810320 
+ 1192      0004
+ 1193 002a 07050203 		.ascii	"\007\005\002\003 \000\010\011\004\001\000\004\377]\003"
+ 1193      20000809 
+ 1193      04010004 
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 30
+
+
+ 1193      FF5D03
+ 1194 0039 001B2100 		.ascii	"\000\033!\000\001\001\001\203@\001\004 \026\205\000"
+ 1194      01010183 
+ 1194      40010420 
+ 1194      168500
+ 1195 0048 00000000 		.ascii	"\000\000\000\000\000\026\005\000\000\000\000\000\000"
+ 1195      00160500 
+ 1195      00000000 
+ 1195      00
+ 1196 0055 07058303 		.ascii	"\007\005\203\003 \000\002\007\005\004\003 \000\004\007"
+ 1196      20000207 
+ 1196      05040320 
+ 1196      000407
+ 1197 0064 05850320 		.ascii	"\005\205\003 \000@\007\005\005\003 \000\020\011\004"
+ 1197      00400705 
+ 1197      05032000 
+ 1197      100904
+ 1198 0073 020001FF 		.ascii	"\002\000\001\377]\002\000\011!\000\001\001\"\206\007"
+ 1198      5D020009 
+ 1198      21000101 
+ 1198      228607
+ 1199 0082 00070586 		.ascii	"\000\007\005\206\003 \000\020\011\004\003\000\000\377"
+ 1199      03200010 
+ 1199      09040300 
+ 1199      00FF
+ 1200 0090 FD130406 		.ascii	"\375\023\004\006A\000\001\001\003"
+ 1200      41000101 
+ 1200      03
+ 1201              		.section	.rodata.device_descriptor,"a"
+ 1202              		.align	2
+ 1205              	device_descriptor:
+ 1206 0000 12010002 		.ascii	"\022\001\000\002\377\377\377@^\004\216\002\020\001\001"
+ 1206      FFFFFF40 
+ 1206      5E048E02 
+ 1206      100101
+ 1207 000f 020301   		.ascii	"\002\003\001"
+ 1208              		.text
+ 1209              	.Letext0:
+ 1210              		.file 3 "D:/GCC/xpack-arm-none-eabi-gcc-13.2.1-1.1/lib/gcc/arm-none-eabi/13.2.1/include/stddef.h"
+ 1211              		.file 4 "D:/GCC/xpack-arm-none-eabi-gcc-13.2.1-1.1/arm-none-eabi/include/machine/_default_types.h"
+ 1212              		.file 5 "D:/GCC/xpack-arm-none-eabi-gcc-13.2.1-1.1/arm-none-eabi/include/sys/_stdint.h"
+ 1213              		.file 6 "USER/CherryUSB/common/usb_def.h"
+ 1214              		.file 7 "USER/CherryUSB/core/usbd_core.h"
+ 1215              		.file 8 "USER/CherryUSB/common/usb_dc.h"
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 31
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 hid_user.c
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:19     .text.usb_memcpy:00000000 $t
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:24     .text.usb_memcpy:00000000 usb_memcpy
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:407    .text.device_descriptor_callback:00000000 $t
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:412    .text.device_descriptor_callback:00000000 device_descriptor_callback
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:429    .text.device_descriptor_callback:00000004 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1205   .rodata.device_descriptor:00000000 device_descriptor
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:434    .text.config_descriptor_callback:00000000 $t
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:439    .text.config_descriptor_callback:00000000 config_descriptor_callback
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:456    .text.config_descriptor_callback:00000004 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1189   .rodata.config_descriptor:00000000 config_descriptor
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:461    .text.device_quality_descriptor_callback:00000000 $t
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:466    .text.device_quality_descriptor_callback:00000000 device_quality_descriptor_callback
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:483    .text.device_quality_descriptor_callback:00000004 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1183   .rodata.device_quality_descriptor:00000000 device_quality_descriptor
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:488    .text.string_descriptor_callback:00000000 $t
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:493    .text.string_descriptor_callback:00000000 string_descriptor_callback
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:522    .text.string_descriptor_callback:00000010 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1167   .rodata.string_descriptors:00000000 string_descriptors
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:527    .text.usbd_hid_int_callback:00000000 $t
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:533    .text.usbd_hid_int_callback:00000000 usbd_hid_int_callback
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:553    .text.usbd_hid_int_callback:00000008 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1126   .bss.hid_state:00000000 hid_state
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:558    .text.usbd_hid_out_callback:00000000 $t
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:564    .text.usbd_hid_out_callback:00000000 usbd_hid_out_callback
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:609    .text.usbd_hid_out_callback:00000020 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1139   .bss.read_buffer:00000000 read_buffer
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1132   .bss.out_flag:00000000 out_flag
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:616    .text.usbd_event_handler:00000000 $t
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:621    .text.usbd_event_handler:00000000 usbd_event_handler
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:663    .text.usbd_event_handler:00000020 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:670    .text.hid_keyboard_init:00000000 $t
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:676    .text.hid_keyboard_init:00000000 hid_keyboard_init
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:782    .text.hid_keyboard_init:00000088 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1146   .rodata.hid_descriptor:00000000 hid_descriptor
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1119   .data.hid_in_ep1:00000000 hid_in_ep1
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1111   .data.hid_in_ep2:00000000 hid_in_ep2
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1103   .data.hid_in_ep3:00000000 hid_in_ep3
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1095   .data.hid_in_ep4:00000000 hid_in_ep4
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1087   .data.hid_in_ep5:00000000 hid_in_ep5
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1079   .data.hid_in_ep6:00000000 hid_in_ep6
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1071   .data.hid_in_ep7:00000000 hid_in_ep7
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1063   .data.hid_out_ep1:00000000 hid_out_ep1
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1055   .data.hid_out_ep2:00000000 hid_out_ep2
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1047   .data.hid_out_ep3:00000000 hid_out_ep3
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1039   .data.hid_out_ep4:00000000 hid_out_ep4
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1031   .data.hid_out_ep5:00000000 hid_out_ep5
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1023   .data.hid_out_ep6:00000000 hid_out_ep6
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1015   .data.hid_out_ep7:00000000 hid_out_ep7
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:802    .text.hid_keyboard_test:00000000 $t
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:808    .text.hid_keyboard_test:00000000 hid_keyboard_test
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:882    .text.hid_keyboard_test:00000044 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:981    .noncacheable:00000000 write_buffer
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:888    .text.hid_write_ep:00000000 $t
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:894    .text.hid_write_ep:00000000 hid_write_ep
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:971    .text.hid_write_ep:0000004c $d
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s 			page 32
+
+
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:978    .noncacheable:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:988    .bss.intf3:00000000 intf3
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:985    .bss.intf3:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:995    .bss.intf2:00000000 intf2
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:992    .bss.intf2:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1002   .bss.intf1:00000000 intf1
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:999    .bss.intf1:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1009   .bss.intf0:00000000 intf0
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1006   .bss.intf0:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1012   .data.hid_out_ep7:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1020   .data.hid_out_ep6:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1028   .data.hid_out_ep5:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1036   .data.hid_out_ep4:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1044   .data.hid_out_ep3:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1052   .data.hid_out_ep2:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1060   .data.hid_out_ep1:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1068   .data.hid_in_ep7:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1076   .data.hid_in_ep6:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1084   .data.hid_in_ep5:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1092   .data.hid_in_ep4:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1100   .data.hid_in_ep3:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1108   .data.hid_in_ep2:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1116   .data.hid_in_ep1:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1127   .bss.hid_state:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1133   .bss.out_flag:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1136   .bss.read_buffer:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1143   .rodata.hid_descriptor:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1154   .rodata.str1.4:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1164   .rodata.string_descriptors:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1176   .rodata.__compound_literal.0:00000000 __compound_literal.0
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1173   .rodata.__compound_literal.0:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1180   .rodata.device_quality_descriptor:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1186   .rodata.config_descriptor:00000000 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccfNldRB.s:1202   .rodata.device_descriptor:00000000 $d
+
+UNDEFINED SYMBOLS
+usbd_ep_start_read
+usbd_desc_register
+usbd_add_endpoint
+usbd_initialize
+usb_device_is_configured
+usbd_ep_start_write

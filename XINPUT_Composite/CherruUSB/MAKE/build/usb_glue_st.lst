@@ -1,0 +1,267 @@
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccf5Vc1M.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"usb_glue_st.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.file 1 "USER/CherryUSB/fsdev/usb_glue_st.c"
+  18              		.section	.text.usb_dc_low_level_init,"ax",%progbits
+  19              		.align	1
+  20              		.global	usb_dc_low_level_init
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  25              	usb_dc_low_level_init:
+  26              	.LVL0:
+  27              	.LFB119:
+   1:USER/CherryUSB/fsdev/usb_glue_st.c **** /*
+   2:USER/CherryUSB/fsdev/usb_glue_st.c ****  * Copyright (c) 2025, sakumisu
+   3:USER/CherryUSB/fsdev/usb_glue_st.c ****  *
+   4:USER/CherryUSB/fsdev/usb_glue_st.c ****  * SPDX-License-Identifier: Apache-2.0
+   5:USER/CherryUSB/fsdev/usb_glue_st.c ****  */
+   6:USER/CherryUSB/fsdev/usb_glue_st.c **** #include "usbd_core.h"
+   7:USER/CherryUSB/fsdev/usb_glue_st.c **** 
+   8:USER/CherryUSB/fsdev/usb_glue_st.c **** #if __has_include("stm32f0xx_hal.h")
+   9:USER/CherryUSB/fsdev/usb_glue_st.c **** #include "stm32f0xx_hal.h"
+  10:USER/CherryUSB/fsdev/usb_glue_st.c **** #elif __has_include("stm32f1xx_hal.h")
+  11:USER/CherryUSB/fsdev/usb_glue_st.c **** #include "stm32f1xx_hal.h"
+  12:USER/CherryUSB/fsdev/usb_glue_st.c **** #elif __has_include("stm32f3xx_hal.h")
+  13:USER/CherryUSB/fsdev/usb_glue_st.c **** #include "stm32f3xx_hal.h"
+  14:USER/CherryUSB/fsdev/usb_glue_st.c **** #elif __has_include("stm32g0xx_hal.h")
+  15:USER/CherryUSB/fsdev/usb_glue_st.c **** #include "stm32g0xx_hal.h"
+  16:USER/CherryUSB/fsdev/usb_glue_st.c **** #elif __has_include("stm32g4xx_hal.h")
+  17:USER/CherryUSB/fsdev/usb_glue_st.c **** #include "stm32g4xx_hal.h"
+  18:USER/CherryUSB/fsdev/usb_glue_st.c **** #elif __has_include("stm32l0xx_hal.h")
+  19:USER/CherryUSB/fsdev/usb_glue_st.c **** #include "stm32l0xx_hal.h"
+  20:USER/CherryUSB/fsdev/usb_glue_st.c **** #elif __has_include("stm32l1xx_hal.h")
+  21:USER/CherryUSB/fsdev/usb_glue_st.c **** #include "stm32l1xx_hal.h"
+  22:USER/CherryUSB/fsdev/usb_glue_st.c **** #elif __has_include("stm32l4xx_hal.h")
+  23:USER/CherryUSB/fsdev/usb_glue_st.c **** #include "stm32l4xx_hal.h"
+  24:USER/CherryUSB/fsdev/usb_glue_st.c **** #elif __has_include("stm32l5xx_hal.h")
+  25:USER/CherryUSB/fsdev/usb_glue_st.c **** #include "stm32l5xx_hal.h"
+  26:USER/CherryUSB/fsdev/usb_glue_st.c **** #endif
+  27:USER/CherryUSB/fsdev/usb_glue_st.c **** 
+  28:USER/CherryUSB/fsdev/usb_glue_st.c **** #if !defined(HAL_PCD_MODULE_ENABLED)
+  29:USER/CherryUSB/fsdev/usb_glue_st.c **** #error please define HAL_PCD_MODULE_ENABLED in stm32xxx_hal_conf.h
+  30:USER/CherryUSB/fsdev/usb_glue_st.c **** #endif
+  31:USER/CherryUSB/fsdev/usb_glue_st.c **** 
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccf5Vc1M.s 			page 2
+
+
+  32:USER/CherryUSB/fsdev/usb_glue_st.c **** #ifndef CONFIG_USBDEV_FSDEV_PMA_ACCESS
+  33:USER/CherryUSB/fsdev/usb_glue_st.c **** #error "please define CONFIG_USBDEV_FSDEV_PMA_ACCESS in usb_config.h"
+  34:USER/CherryUSB/fsdev/usb_glue_st.c **** #endif
+  35:USER/CherryUSB/fsdev/usb_glue_st.c **** 
+  36:USER/CherryUSB/fsdev/usb_glue_st.c **** #if CONFIG_USBDEV_FSDEV_PMA_ACCESS != PMA_ACCESS
+  37:USER/CherryUSB/fsdev/usb_glue_st.c **** #error "CONFIG_USBDEV_FSDEV_PMA_ACCESS must be equal PMA_ACCESS"
+  38:USER/CherryUSB/fsdev/usb_glue_st.c **** #endif
+  39:USER/CherryUSB/fsdev/usb_glue_st.c **** 
+  40:USER/CherryUSB/fsdev/usb_glue_st.c **** struct fsdev_instance {
+  41:USER/CherryUSB/fsdev/usb_glue_st.c ****     USB_TypeDef *Instance;
+  42:USER/CherryUSB/fsdev/usb_glue_st.c **** };
+  43:USER/CherryUSB/fsdev/usb_glue_st.c **** 
+  44:USER/CherryUSB/fsdev/usb_glue_st.c **** static struct fsdev_instance g_fsdev_instance;
+  45:USER/CherryUSB/fsdev/usb_glue_st.c **** 
+  46:USER/CherryUSB/fsdev/usb_glue_st.c **** void usb_dc_low_level_init(uint8_t busid)
+  47:USER/CherryUSB/fsdev/usb_glue_st.c **** {
+  28              		.loc 1 47 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		.loc 1 47 1 is_stmt 0 view .LVU1
+  33 0000 08B5     		push	{r3, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 3, -8
+  37              		.cfi_offset 14, -4
+  48:USER/CherryUSB/fsdev/usb_glue_st.c ****     g_fsdev_instance.Instance = (USB_TypeDef *)g_usbdev_bus[busid].reg_base;
+  38              		.loc 1 48 5 is_stmt 1 view .LVU2
+  39              		.loc 1 48 67 is_stmt 0 view .LVU3
+  40 0002 044B     		ldr	r3, .L3
+  41 0004 03EBC003 		add	r3, r3, r0, lsl #3
+  42 0008 5B68     		ldr	r3, [r3, #4]
+  43              		.loc 1 48 31 view .LVU4
+  44 000a 0348     		ldr	r0, .L3+4
+  45              	.LVL1:
+  46              		.loc 1 48 31 view .LVU5
+  47 000c 0360     		str	r3, [r0]
+  49:USER/CherryUSB/fsdev/usb_glue_st.c ****     HAL_PCD_MspInit((PCD_HandleTypeDef *)&g_fsdev_instance);
+  48              		.loc 1 49 5 is_stmt 1 view .LVU6
+  49 000e FFF7FEFF 		bl	HAL_PCD_MspInit
+  50              	.LVL2:
+  50:USER/CherryUSB/fsdev/usb_glue_st.c **** }
+  51              		.loc 1 50 1 is_stmt 0 view .LVU7
+  52 0012 08BD     		pop	{r3, pc}
+  53              	.L4:
+  54              		.align	2
+  55              	.L3:
+  56 0014 00000000 		.word	g_usbdev_bus
+  57 0018 00000000 		.word	g_fsdev_instance
+  58              		.cfi_endproc
+  59              	.LFE119:
+  61              		.section	.text.usb_dc_low_level_deinit,"ax",%progbits
+  62              		.align	1
+  63              		.global	usb_dc_low_level_deinit
+  64              		.syntax unified
+  65              		.thumb
+  66              		.thumb_func
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccf5Vc1M.s 			page 3
+
+
+  68              	usb_dc_low_level_deinit:
+  69              	.LVL3:
+  70              	.LFB120:
+  51:USER/CherryUSB/fsdev/usb_glue_st.c **** 
+  52:USER/CherryUSB/fsdev/usb_glue_st.c **** void usb_dc_low_level_deinit(uint8_t busid)
+  53:USER/CherryUSB/fsdev/usb_glue_st.c **** {
+  71              		.loc 1 53 1 is_stmt 1 view -0
+  72              		.cfi_startproc
+  73              		@ args = 0, pretend = 0, frame = 0
+  74              		@ frame_needed = 0, uses_anonymous_args = 0
+  75              		.loc 1 53 1 is_stmt 0 view .LVU9
+  76 0000 08B5     		push	{r3, lr}
+  77              	.LCFI1:
+  78              		.cfi_def_cfa_offset 8
+  79              		.cfi_offset 3, -8
+  80              		.cfi_offset 14, -4
+  54:USER/CherryUSB/fsdev/usb_glue_st.c ****     g_fsdev_instance.Instance = (USB_TypeDef *)g_usbdev_bus[busid].reg_base;
+  81              		.loc 1 54 5 is_stmt 1 view .LVU10
+  82              		.loc 1 54 67 is_stmt 0 view .LVU11
+  83 0002 044B     		ldr	r3, .L7
+  84 0004 03EBC003 		add	r3, r3, r0, lsl #3
+  85 0008 5B68     		ldr	r3, [r3, #4]
+  86              		.loc 1 54 31 view .LVU12
+  87 000a 0348     		ldr	r0, .L7+4
+  88              	.LVL4:
+  89              		.loc 1 54 31 view .LVU13
+  90 000c 0360     		str	r3, [r0]
+  55:USER/CherryUSB/fsdev/usb_glue_st.c ****     HAL_PCD_MspDeInit((PCD_HandleTypeDef *)&g_fsdev_instance);
+  91              		.loc 1 55 5 is_stmt 1 view .LVU14
+  92 000e FFF7FEFF 		bl	HAL_PCD_MspDeInit
+  93              	.LVL5:
+  56:USER/CherryUSB/fsdev/usb_glue_st.c **** }
+  94              		.loc 1 56 1 is_stmt 0 view .LVU15
+  95 0012 08BD     		pop	{r3, pc}
+  96              	.L8:
+  97              		.align	2
+  98              	.L7:
+  99 0014 00000000 		.word	g_usbdev_bus
+ 100 0018 00000000 		.word	g_fsdev_instance
+ 101              		.cfi_endproc
+ 102              	.LFE120:
+ 104              		.section	.text.USB_IRQHandler,"ax",%progbits
+ 105              		.align	1
+ 106              		.global	USB_IRQHandler
+ 107              		.syntax unified
+ 108              		.thumb
+ 109              		.thumb_func
+ 111              	USB_IRQHandler:
+ 112              	.LFB121:
+  57:USER/CherryUSB/fsdev/usb_glue_st.c **** 
+  58:USER/CherryUSB/fsdev/usb_glue_st.c **** void USB_IRQHandler(void)
+  59:USER/CherryUSB/fsdev/usb_glue_st.c **** {
+ 113              		.loc 1 59 1 is_stmt 1 view -0
+ 114              		.cfi_startproc
+ 115              		@ args = 0, pretend = 0, frame = 0
+ 116              		@ frame_needed = 0, uses_anonymous_args = 0
+ 117 0000 08B5     		push	{r3, lr}
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccf5Vc1M.s 			page 4
+
+
+ 118              	.LCFI2:
+ 119              		.cfi_def_cfa_offset 8
+ 120              		.cfi_offset 3, -8
+ 121              		.cfi_offset 14, -4
+  60:USER/CherryUSB/fsdev/usb_glue_st.c ****     USBD_IRQHandler(0);
+ 122              		.loc 1 60 5 view .LVU17
+ 123 0002 0020     		movs	r0, #0
+ 124 0004 FFF7FEFF 		bl	USBD_IRQHandler
+ 125              	.LVL6:
+  61:USER/CherryUSB/fsdev/usb_glue_st.c **** }
+ 126              		.loc 1 61 1 is_stmt 0 view .LVU18
+ 127 0008 08BD     		pop	{r3, pc}
+ 128              		.cfi_endproc
+ 129              	.LFE121:
+ 131              		.section	.text.USB_LP_CAN1_RX0_IRQHandler,"ax",%progbits
+ 132              		.align	1
+ 133              		.global	USB_LP_CAN1_RX0_IRQHandler
+ 134              		.syntax unified
+ 135              		.thumb
+ 136              		.thumb_func
+ 138              	USB_LP_CAN1_RX0_IRQHandler:
+ 139              	.LFB122:
+  62:USER/CherryUSB/fsdev/usb_glue_st.c **** 
+  63:USER/CherryUSB/fsdev/usb_glue_st.c **** void USB_LP_IRQHandler(void)
+  64:USER/CherryUSB/fsdev/usb_glue_st.c **** {
+ 140              		.loc 1 64 1 is_stmt 1 view -0
+ 141              		.cfi_startproc
+ 142              		@ args = 0, pretend = 0, frame = 0
+ 143              		@ frame_needed = 0, uses_anonymous_args = 0
+ 144 0000 08B5     		push	{r3, lr}
+ 145              	.LCFI3:
+ 146              		.cfi_def_cfa_offset 8
+ 147              		.cfi_offset 3, -8
+ 148              		.cfi_offset 14, -4
+  65:USER/CherryUSB/fsdev/usb_glue_st.c ****     USBD_IRQHandler(0);
+ 149              		.loc 1 65 5 view .LVU20
+ 150 0002 0020     		movs	r0, #0
+ 151 0004 FFF7FEFF 		bl	USBD_IRQHandler
+ 152              	.LVL7:
+  66:USER/CherryUSB/fsdev/usb_glue_st.c **** }...
+ 153              		.loc 1 66 1 is_stmt 0 view .LVU21
+ 154 0008 08BD     		pop	{r3, pc}
+ 155              		.cfi_endproc
+ 156              	.LFE122:
+ 158              		.section	.bss.g_fsdev_instance,"aw",%nobits
+ 159              		.align	2
+ 162              	g_fsdev_instance:
+ 163 0000 00000000 		.space	4
+ 164              		.text
+ 165              	.Letext0:
+ 166              		.file 2 "D:/GCC/xpack-arm-none-eabi-gcc-13.2.1-1.1/arm-none-eabi/include/machine/_default_types.h"
+ 167              		.file 3 "D:/GCC/xpack-arm-none-eabi-gcc-13.2.1-1.1/arm-none-eabi/include/sys/_stdint.h"
+ 168              		.file 4 "USER/CherryUSB/core/usbd_core.h"
+ 169              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h"
+ 170              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 171              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h"
+ 172              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd.h"
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccf5Vc1M.s 			page 5
+
+
+ 173              		.file 9 "USER/CherryUSB/common/usb_dc.h"
+ARM GAS  C:\Users\BaiJiang\AppData\Local\Temp\ccf5Vc1M.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 usb_glue_st.c
+C:\Users\BaiJiang\AppData\Local\Temp\ccf5Vc1M.s:19     .text.usb_dc_low_level_init:00000000 $t
+C:\Users\BaiJiang\AppData\Local\Temp\ccf5Vc1M.s:25     .text.usb_dc_low_level_init:00000000 usb_dc_low_level_init
+C:\Users\BaiJiang\AppData\Local\Temp\ccf5Vc1M.s:56     .text.usb_dc_low_level_init:00000014 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccf5Vc1M.s:162    .bss.g_fsdev_instance:00000000 g_fsdev_instance
+C:\Users\BaiJiang\AppData\Local\Temp\ccf5Vc1M.s:62     .text.usb_dc_low_level_deinit:00000000 $t
+C:\Users\BaiJiang\AppData\Local\Temp\ccf5Vc1M.s:68     .text.usb_dc_low_level_deinit:00000000 usb_dc_low_level_deinit
+C:\Users\BaiJiang\AppData\Local\Temp\ccf5Vc1M.s:99     .text.usb_dc_low_level_deinit:00000014 $d
+C:\Users\BaiJiang\AppData\Local\Temp\ccf5Vc1M.s:105    .text.USB_IRQHandler:00000000 $t
+C:\Users\BaiJiang\AppData\Local\Temp\ccf5Vc1M.s:111    .text.USB_IRQHandler:00000000 USB_IRQHandler
+C:\Users\BaiJiang\AppData\Local\Temp\ccf5Vc1M.s:132    .text.USB_LP_CAN1_RX0_IRQHandler:00000000 $t
+C:\Users\BaiJiang\AppData\Local\Temp\ccf5Vc1M.s:138    .text.USB_LP_CAN1_RX0_IRQHandler:00000000 USB_LP_CAN1_RX0_IRQHandler
+C:\Users\BaiJiang\AppData\Local\Temp\ccf5Vc1M.s:159    .bss.g_fsdev_instance:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_PCD_MspInit
+g_usbdev_bus
+HAL_PCD_MspDeInit
+USBD_IRQHandler

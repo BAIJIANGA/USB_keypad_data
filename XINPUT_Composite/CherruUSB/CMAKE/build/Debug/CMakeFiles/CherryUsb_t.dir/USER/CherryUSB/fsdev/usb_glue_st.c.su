@@ -1,0 +1,4 @@
+C:/Users/BaiJiang/Desktop/CherryUsb_t_2/USER/CherryUSB/fsdev/usb_glue_st.c:46:6:usb_dc_low_level_init	16	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t_2/USER/CherryUSB/fsdev/usb_glue_st.c:52:6:usb_dc_low_level_deinit	16	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t_2/USER/CherryUSB/fsdev/usb_glue_st.c:58:6:USB_IRQHandler	8	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t_2/USER/CherryUSB/fsdev/usb_glue_st.c:63:6:USB_LP_CAN1_RX0_IRQHandler	8	static

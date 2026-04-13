@@ -1,0 +1,3 @@
+E:/GitHub_BAIJING_WorkSpace/USB_keypad_data/XINPUT/ST_USB_cmake/USB_DEVICE/App/usbd_custom_hid_if.c:276:15:CUSTOM_HID_Init_FS	4	static
+E:/GitHub_BAIJING_WorkSpace/USB_keypad_data/XINPUT/ST_USB_cmake/USB_DEVICE/App/usbd_custom_hid_if.c:287:15:CUSTOM_HID_DeInit_FS	4	static
+E:/GitHub_BAIJING_WorkSpace/USB_keypad_data/XINPUT/ST_USB_cmake/USB_DEVICE/App/usbd_custom_hid_if.c:300:15:CUSTOM_HID_OutEvent_FS	16	static

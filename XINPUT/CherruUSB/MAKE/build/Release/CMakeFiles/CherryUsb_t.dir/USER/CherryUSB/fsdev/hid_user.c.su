@@ -1,0 +1,10 @@
+C:/Users/BaiJiang/Desktop/CherryUsb_t/USER/CherryUSB/fsdev/hid_user.c:54:23:device_descriptor_callback	0	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t/USER/CherryUSB/fsdev/hid_user.c:59:23:config_descriptor_callback	0	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t/USER/CherryUSB/fsdev/hid_user.c:64:23:device_quality_descriptor_callback	0	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t/USER/CherryUSB/fsdev/hid_user.c:69:20:string_descriptor_callback	0	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t/USER/CherryUSB/fsdev/hid_user.c:139:13:usbd_event_handler	0	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t/USER/CherryUSB/fsdev/hid_user.c:165:6:usbd_hid_int_callback	0	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t/USER/CherryUSB/fsdev/hid_user.c:199:6:usbd_hid_out_callback	0	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t/USER/CherryUSB/fsdev/hid_user.c:235:6:hid_keyboard_init	16	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t/USER/CherryUSB/fsdev/hid_user.c:266:6:hid_keyboard_test	16	static
+C:/Users/BaiJiang/Desktop/CherryUsb_t/USER/CherryUSB/fsdev/hid_user.c:281:6:hid_write_ep	24	static

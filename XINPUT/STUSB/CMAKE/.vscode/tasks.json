@@ -1,0 +1,86 @@
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "build",
+            "command": "mingw32-make -j 8",
+            "args": [],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "flash",
+            "command": "openocd",
+            "args": [
+                "-f",
+                "interface/stlink.cfg",
+                "-f",
+                "target/stm32f1x.cfg",
+                "-c",
+                "program build/ST_USB.elf verify reset exit"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "CMake Debug flash ",
+            "command": "openocd",
+            "args": [
+                "-f",
+                "interface/stlink.cfg",
+                "-f",
+                "target/stm32f1x.cfg",
+                "-c",
+                "program build/Debug/ST_USB.elf verify reset exit"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "CMake Release flash ",
+            "command": "openocd",
+            "args": [
+                "-f",
+                "interface/stlink.cfg",
+                "-f",
+                "target/stm32f1x.cfg",
+                "-c",
+                "program build/Release/ST_USB.elf verify reset exit"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "CMake: build Debug",
+            "command": "cmake --preset Debug; cmake --build --preset Debug",
+            "args": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "type": "shell",
+            "label": "CMake: build Release",
+            "command": "cmake --preset Release; cmake --build --preset Release",
+            "args": [],
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        }
+    ],
+    "version": "2.0.0"
+
+}

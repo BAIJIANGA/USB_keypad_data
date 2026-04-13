@@ -1,1 +1,9 @@
-USB The handle packets captured by the USB analyzer include XBOX and SONY
+Both XINPUT and XINPUT Composite are implemented using the Cherry USB library and the ST USB library, with three HAL library-based templates provided therein.
+
+GameSir_XBOX.pcapng and GameSir_Sony.pcapng is USB The handle packets captured by the USB analyzer include XBOX and SONY.
+
+Personally, I highly recommend using the CherryUSB library-it has a clean, straightforward architecture.However, one critical point when using CherryUSB is that printf redirection must be implemented, regardless of which template you use.If compiling with MDK-ARM, you must enable MicroLIB, because CherryUSB outputs a large amount of log information via printf.I have attempted to disable these logs using macros, but without success.
+
+Complaint:I can only say this ST USB library is total garbage. Compared with CherryUSB, it is nothing but a complete disaster. It is overcomplicated, bloated to death, with pointers flying all over the place making debugging a nightmare. Endpoint buffer allocation is so easily overlooked that it directly causes enumeration failures or broken data transfers.
+What is worse, when using CubeMX, every single time your endpoint buffer code gets completely overwritten. It is stuffed with tons of redundant macros that serve no purpose at all. Whenever you try to modify anything, you have to tweak code in multiple places, which is ridiculously error-prone and wastes massive amounts of time.
+This library abuses pointers to an absurd degree. I see zero advantage in this approach-it is just obnoxious, unnecessary showboating. The heavy pointer coupling destroys code readability and makes debugging nearly impossible. Plus, it is packed with a huge mess of files with zero clear layering, to the point where you can barely even find the endpoint TX/RX callback functions.
